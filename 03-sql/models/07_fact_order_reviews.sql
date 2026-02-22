@@ -1,6 +1,6 @@
 -- ==============================================================
 -- Model: fact_order_reviews
--- Grain: 1 row per review_id
+-- Grain: 1 row per (review_id, order_id)
 -- Sources:
 --   stg_order_reviews
 --   stg_orders (customer_id + purchase_date_key)
