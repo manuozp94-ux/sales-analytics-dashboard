@@ -115,3 +115,16 @@ Each Fabric change note must include links to impacted local artifacts (SQL, doc
   - `ROADMAP.md`
 - Historical/conversational documentation under `context-consolidation` is archive material.
 - Canonical updates must be reflected in English docs, not only in archived transcripts.
+
+## 11. Git History Curation Policy
+
+- This project may perform a final history curation pass for readability near portfolio finalization.
+- Curation is allowed only under explicit transparency controls:
+  - keep one published archive branch with original history,
+  - keep one immutable pre-curation tag,
+  - include a short disclosure note in canonical documentation.
+- Ongoing work must remain curation-ready:
+  - atomic commits,
+  - no mixed unrelated scopes in one commit,
+  - PR metadata includes one curation track label.
+- Reference workflow: `05-docs/HISTORY_CURATION_STRATEGY.md`.

@@ -28,10 +28,31 @@ Use concise conventional prefixes:
 - `chore:`
 - `ci:`
 
+Recommended format:
+
+- `<type>(<scope>): <summary>`
+
 Examples:
 
 - `feat: add monthly snapshot mart validation`
 - `docs: update roadmap with week-2 portfolio targets`
+- `ci(fabric): add runtime token generation for deploy apply`
+
+## History-Curation Readiness
+
+This repo will run a final history-curation pass near portfolio finalization.  
+To keep that process safe and transparent:
+
+- Keep commits atomic (one intent per commit).
+- Avoid mixing unrelated domains in one commit.
+- Use one curation track label in PR metadata:
+  - `T1-foundation`
+  - `T2-modeling`
+  - `T3-fabric`
+  - `T4-portfolio`
+- Keep original-history archive references when rewrite is executed.
+
+See `05-docs/HISTORY_CURATION_STRATEGY.md` for full policy.
 
 ## Pull Request Standard
 

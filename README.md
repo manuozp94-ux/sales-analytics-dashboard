@@ -37,6 +37,7 @@ Before ending a work session, manually update:
 
 - [Project Rules](05-docs/PROJECT_RULES.md)
 - [Roadmap](05-docs/ROADMAP.md)
+- [History Curation Strategy](05-docs/HISTORY_CURATION_STRATEGY.md)
 - [GitHub + Azure DevOps Model](05-docs/GITHUB_ADO_OPERATING_MODEL.md)
 - [Model Overview](05-docs/README.md)
 - [Metric Contract](05-docs/PHASE_4_METRIC_CONTRACT.md)

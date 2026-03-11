@@ -10,6 +10,13 @@
 
 <!-- Include queries, checks, CI output, or screenshots proving correctness. -->
 
+## History Curation Metadata
+
+<!-- Select one: T1-foundation | T2-modeling | T3-fabric | T4-portfolio -->
+
+- Curate Track:
+- Curated commit title candidate:
+
 ## Fabric Evidence Note (when applicable)
 
 <!-- Required for major Fabric changes: link note under 06-fabric-sync/notes/. -->
@@ -30,6 +37,7 @@
 ## Checklist
 
 - [ ] Branch and commit naming follow project rules.
+- [ ] One curate track label is defined in this PR.
 - [ ] CI checks pass.
 - [ ] No prohibited heavy artifacts were introduced.
 - [ ] Changes are aligned with `05-docs/PROJECT_RULES.md` and `05-docs/ROADMAP.md`.

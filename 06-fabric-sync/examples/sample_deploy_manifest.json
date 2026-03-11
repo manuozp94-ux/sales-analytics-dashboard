@@ -1,0 +1,24 @@
+{
+  "workspace_id": "00000000-0000-0000-0000-000000000000",
+  "operations": [
+    {
+      "name": "Create warehouse scaffold",
+      "description": "Create curated warehouse item if it does not exist yet.",
+      "method": "POST",
+      "path": "/v1/workspaces/{workspace_id}/items",
+      "body": {
+        "displayName": "wh_sales_core",
+        "type": "Warehouse"
+      }
+    },
+    {
+      "name": "Update pipeline scaffold",
+      "description": "Example update call. Replace the item ID and payload before apply.",
+      "method": "PATCH",
+      "path": "/v1/workspaces/{workspace_id}/items/33333333-3333-3333-3333-333333333333",
+      "body": {
+        "displayName": "pl_copy_lh_to_wh"
+      }
+    }
+  ]
+}

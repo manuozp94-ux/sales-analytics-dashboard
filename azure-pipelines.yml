@@ -4,16 +4,167 @@ trigger:
 pr:
 - main
 
-pool:
-  vmImage: ubuntu-latest
+parameters:
+- name: runFabricApply
+  type: boolean
+  default: false
+- name: fabricDeployManifest
+  type: string
+  default: "06-fabric-sync/examples/p0_first_cycle_manifest.json"
+- name: useSelfHosted
+  type: boolean
+  default: true
+- name: selfHostedPool
+  type: string
+  default: "Default"
 
-steps:
-- checkout: self
+stages:
+- stage: quality
+  displayName: "Quality Checks"
+  jobs:
+  - job: quality_checks
+    displayName: "Run repository quality checks"
+    pool:
+      ${{ if eq(parameters.useSelfHosted, true) }}:
+        name: ${{ parameters.selfHostedPool }}
+      ${{ if ne(parameters.useSelfHosted, true) }}:
+        vmImage: ubuntu-latest
+    steps:
+    - checkout: self
 
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: "3.11"
-    addToPath: true
+    - ${{ if ne(parameters.useSelfHosted, true) }}:
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: "3.11"
+          addToPath: true
 
-- script: python .github/scripts/quality_checks.py
-  displayName: "Run repository quality checks"
+    - script: python3 .github/scripts/quality_checks.py
+      displayName: "Run repository quality checks"
+
+- stage: fabric_dry_run
+  displayName: "Fabric Deploy Dry-Run"
+  dependsOn: quality
+  condition: succeeded()
+  jobs:
+  - job: deploy_dry_run
+    displayName: "Generate deployment plan (dry-run)"
+    pool:
+      ${{ if eq(parameters.useSelfHosted, true) }}:
+        name: ${{ parameters.selfHostedPool }}
+      ${{ if ne(parameters.useSelfHosted, true) }}:
+        vmImage: ubuntu-latest
+    steps:
+    - checkout: self
+
+    - ${{ if ne(parameters.useSelfHosted, true) }}:
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: "3.11"
+          addToPath: true
+
+    - script: |
+        python3 06-fabric-sync/fabric_deploy.py \
+          --action dry-run \
+          --mode file \
+          --input-current 06-fabric-sync/examples/sample_items.json \
+          --desired-state "${{ parameters.fabricDeployManifest }}"
+      displayName: "Validate Fabric deploy manifest (dry-run)"
+
+- stage: fabric_apply
+  displayName: "Fabric Deploy Apply (Manual Gate)"
+  dependsOn: fabric_dry_run
+  condition: and(succeeded(), eq(${{ parameters.runFabricApply }}, true), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - job: manual_approval
+    displayName: "Manual approval gate"
+    pool: server
+    timeoutInMinutes: 1440
+    steps:
+    - task: ManualValidation@0
+      timeoutInMinutes: 1440
+      inputs:
+        notifyUsers: ""
+        instructions: |
+          Review the latest dry-run plan and confirm workspace/manifest alignment.
+          Approve only if this run should execute write operations in Fabric.
+        onTimeout: reject
+
+  - job: deploy_apply
+    displayName: "Execute Fabric deploy apply"
+    dependsOn: manual_approval
+    condition: succeeded()
+    pool:
+      ${{ if eq(parameters.useSelfHosted, true) }}:
+        name: ${{ parameters.selfHostedPool }}
+      ${{ if ne(parameters.useSelfHosted, true) }}:
+        vmImage: ubuntu-latest
+    steps:
+    - checkout: self
+
+    - ${{ if ne(parameters.useSelfHosted, true) }}:
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: "3.11"
+          addToPath: true
+
+    - script: |
+        set -euo pipefail
+
+        for required_var in FABRIC_TENANT_ID FABRIC_CLIENT_ID FABRIC_CLIENT_SECRET; do
+          if [ -z "${!required_var:-}" ]; then
+            echo "Missing required pipeline variable: ${required_var}."
+            exit 1
+          fi
+        done
+
+        token_response="$(curl -sS -X POST "https://login.microsoftonline.com/${FABRIC_TENANT_ID}/oauth2/v2.0/token" \
+          -H "Content-Type: application/x-www-form-urlencoded" \
+          --data-urlencode "client_id=${FABRIC_CLIENT_ID}" \
+          --data-urlencode "client_secret=${FABRIC_CLIENT_SECRET}" \
+          --data-urlencode "grant_type=client_credentials" \
+          --data-urlencode "scope=https://api.fabric.microsoft.com/.default")"
+
+        access_token="$(echo "${token_response}" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("access_token",""))')"
+
+        if [ -z "${access_token}" ]; then
+          echo "Failed to acquire Fabric bearer token from service principal credentials."
+          exit 1
+        fi
+
+        echo "##vso[task.setvariable variable=FABRIC_BEARER_TOKEN_RUNTIME;issecret=true]${access_token}"
+        echo "Fabric bearer token generated for this job."
+      displayName: "Resolve Fabric bearer token"
+      env:
+        FABRIC_TENANT_ID: $(FABRIC_TENANT_ID)
+        FABRIC_CLIENT_ID: $(FABRIC_CLIENT_ID)
+        FABRIC_CLIENT_SECRET: $(FABRIC_CLIENT_SECRET)
+
+    - script: |
+        set -euo pipefail
+
+        if [ -z "${FABRIC_WORKSPACE_ID_INPUT:-}" ]; then
+          echo "Missing required pipeline variable: FABRIC_WORKSPACE_ID"
+          exit 1
+        fi
+
+        if [ -z "${FABRIC_BEARER_TOKEN_RUNTIME:-}" ]; then
+          echo "Missing runtime bearer token for apply step."
+          exit 1
+        fi
+
+        if [ "${{ parameters.fabricDeployManifest }}" = "06-fabric-sync/examples/sample_deploy_manifest.json" ]; then
+          echo "Refusing apply with sample_deploy_manifest.json. Use p0_first_cycle_manifest.json or another workspace-aligned manifest."
+          exit 1
+        fi
+
+        python3 06-fabric-sync/fabric_deploy.py \
+          --action apply \
+          --confirm-apply YES \
+          --mode rest \
+          --workspace-id "${FABRIC_WORKSPACE_ID_INPUT}" \
+          --token-env FABRIC_BEARER_TOKEN_RUNTIME \
+          --desired-state "${{ parameters.fabricDeployManifest }}"
+      displayName: "Apply Fabric deployment manifest"
+      env:
+        FABRIC_WORKSPACE_ID_INPUT: $(FABRIC_WORKSPACE_ID)
+        FABRIC_BEARER_TOKEN_RUNTIME: $(FABRIC_BEARER_TOKEN_RUNTIME)

@@ -13,6 +13,8 @@ This workflow stores a versionable inventory of Fabric workspace artifacts and g
 - `06-fabric-sync/state/fabric_inventory_latest.json`
 - `06-fabric-sync/state/history/fabric_inventory_YYYYMMDD_HHMMSSZ.json`
 - `06-fabric-sync/state/fabric_inventory_diff_latest.md`
+- `06-fabric-sync/state/fabric_deploy_plan_latest.json` (deploy scaffold)
+- `06-fabric-sync/state/fabric_deploy_report_latest.md` (deploy scaffold)
 
 ## Mode 1: Fabric API (Recommended)
 
@@ -41,6 +43,58 @@ python3 06-fabric-sync/fabric_sync.py \
   --workspace-id "<optional_workspace_id>"
 ```
 
+## Mode 3: Controlled Write Scaffold (`dry-run` + `apply`)
+
+Use `fabric_deploy.py` for controlled, manifest-driven write automation.
+
+1. Prepare a manifest (`operations[]`) from:
+   - `06-fabric-sync/examples/sample_deploy_manifest.json`
+2. Run dry-run against a local current-state file:
+
+```bash
+python3 06-fabric-sync/fabric_deploy.py \
+  --action dry-run \
+  --mode file \
+  --input-current 06-fabric-sync/examples/sample_items.json \
+  --desired-state 06-fabric-sync/examples/sample_deploy_manifest.json \
+  --workspace-id "00000000-0000-0000-0000-000000000000"
+```
+
+3. Apply against Fabric REST (manual approval required in pipeline):
+
+```bash
+export FABRIC_BEARER_TOKEN="<your_token>"
+
+python3 06-fabric-sync/fabric_deploy.py \
+  --action apply \
+  --confirm-apply YES \
+  --mode rest \
+  --workspace-id "<fabric_workspace_id>" \
+  --desired-state 06-fabric-sync/examples/sample_deploy_manifest.json
+```
+
+Guardrails:
+
+- Manifest paths must be workspace-scoped (`/v1/workspaces/{workspace_id}/...`).
+- `DELETE` operations are blocked unless `--allow-delete` is explicitly passed.
+- `apply` requires `--confirm-apply YES`.
+
+## Azure Pipeline Integration
+
+- `azure-pipelines.yml` now includes:
+  - `quality` stage (repo checks),
+  - `fabric_dry_run` stage (manifest validation),
+  - `fabric_apply` stage (manual approval + apply).
+- `fabric_apply` only runs when:
+  - parameter `runFabricApply=true`,
+  - branch is `main`,
+  - manual approval is granted.
+- Required pipeline variables for apply:
+  - `FABRIC_WORKSPACE_ID`
+- Authentication options in pipeline:
+  - Option A (recommended): `FABRIC_TENANT_ID`, `FABRIC_CLIENT_ID`, `FABRIC_CLIENT_SECRET` (secrets) and token is generated at runtime.
+  - Option B: provide `FABRIC_BEARER_TOKEN` directly as a secret variable.
+
 ## Normalized Fields
 
 Per artifact:
@@ -67,6 +121,7 @@ Per artifact:
 
 ## Notes
 
-- The script is read-only for Fabric artifacts.
+- `fabric_sync.py` is read-only for Fabric artifacts.
+- `fabric_deploy.py` is the controlled write scaffold and should be used behind manual approval.
 - Default REST endpoint: `https://api.fabric.microsoft.com`.
 - If the API response is paginated, the script follows `continuationUri`, `nextLink`, or `continuationToken`.

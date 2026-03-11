@@ -1,0 +1,14 @@
+{
+  "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+  "operations": [
+    {
+      "name": "P0 safe pipeline metadata update",
+      "description": "First controlled deploy cycle validation.",
+      "method": "PATCH",
+      "path": "/v1/workspaces/{workspace_id}/items/f7338657-2925-4f67-b4a9-dc11c213549d",
+      "body": {
+        "displayName": "01_pipe_from_bronze_to_stg"
+      }
+    }
+  ]
+}

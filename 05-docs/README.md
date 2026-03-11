@@ -7,6 +7,7 @@
 
 - Project Rules: `05-docs/PROJECT_RULES.md`
 - Roadmap: `05-docs/ROADMAP.md`
+- History Curation Strategy: `05-docs/HISTORY_CURATION_STRATEGY.md`
 - Project Memory:
   - `05-docs/project-memory/PROJECT_STATUS.md`
   - `05-docs/project-memory/SESSION_LOG.md`
