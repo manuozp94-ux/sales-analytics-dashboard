@@ -1,0 +1,19 @@
+consolidation_version: 1
+generated_at: '2026-03-05'
+source_conversations:
+  - CONV_A
+  - CONV_B
+  - CONV_C
+source_paths:
+  CONV_A: 01-source-conversations/CONV_A
+  CONV_B: 01-source-conversations/CONV_B
+  CONV_C: 01-source-conversations/CONV_C
+facts:
+  total_facts: 60
+  by_conversation:
+    CONV_A: 25
+    CONV_B: 10
+    CONV_C: 25
+notes:
+  - CONV_B patched using codex_full_export.zip over conversation_codex_export.zip
+  - evidence_msg_id may be UNKNOWN due to source export limits

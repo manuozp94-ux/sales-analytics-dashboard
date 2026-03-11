@@ -1,0 +1,51 @@
+name: Work Item
+description: Plan and track a scoped portfolio, data, or platform task.
+title: "[Work] "
+labels:
+  - work-item
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: What outcome is required?
+      placeholder: Describe the deliverable and why it matters.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: track
+    attributes:
+      label: Delivery Track
+      options:
+        - Portfolio
+        - Data Modeling
+        - Fabric Migration
+        - CI/CD and DevOps
+        - Certification
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: Define success in measurable terms.
+      placeholder: Include reproducibility, validation evidence, and documentation expectations.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence Plan
+      description: Which outputs prove completion?
+      placeholder: Links to docs, screenshots, SQL checks, CI runs, dashboard links.
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies or Risks
+      description: List blockers or assumptions.

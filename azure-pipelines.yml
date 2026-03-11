@@ -1,0 +1,19 @@
+trigger:
+- main
+
+pr:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- checkout: self
+
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: "3.11"
+    addToPath: true
+
+- script: python .github/scripts/quality_checks.py
+  displayName: "Run repository quality checks"

@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Generated local databases and heavy exports
+*.duckdb
+*.duckdb.wal
+*.zip
+
+# Large ad-hoc raw exports (keep curated/reproducible data strategy)
+01-data/01-raw/*.parquet
+01-data/01-raw/*.feather
+01-data/01-raw/*.jsonl
+
+# Fabric sync state history can be versioned intentionally.
+# Keep this line commented unless you decide to stop tracking history snapshots.
+# 06-fabric-sync/state/history/*.json

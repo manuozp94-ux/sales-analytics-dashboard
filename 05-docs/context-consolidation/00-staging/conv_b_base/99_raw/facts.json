@@ -1,0 +1,202 @@
+[
+  {
+    "fact_id": "F001",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F002",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F003",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F004",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F005",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F006",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F007",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F008",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F009",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F010",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F011",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F012",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F013",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F014",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F015",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F016",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F017",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F018",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F019",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F020",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F021",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F022",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F023",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F024",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F025",
+    "statement": "Fact extracted from conversation context",
+    "category": "architecture",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  }
+]

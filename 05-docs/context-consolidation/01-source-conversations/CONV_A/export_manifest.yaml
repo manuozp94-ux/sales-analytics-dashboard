@@ -1,0 +1,17 @@
+conversation_id: CONV_A
+export_version: 2
+completeness_estimate: 78
+main_topics:
+- python_environment_setup_terminal
+- zsh_terminal_basics
+- jupyter_notebook_environment_setup
+- analytics_engineering_learning_project
+- csv_data_validation_with_pandas
+- repository_structure_for_data_projects
+- star_schema_learning_path
+- microsoft_fabric_future_target_architecture
+unresolved_items_count: 14
+known_limitations:
+- conversation_excerpt_only_available_in_interface_not_raw_logs
+- dataset_schema_not_provided_in_conversation
+- fabric_workspace_not_yet_created

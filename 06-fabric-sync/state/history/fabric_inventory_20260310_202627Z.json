@@ -1,0 +1,54 @@
+{
+  "snapshot_utc": "2026-03-10T20:26:27+00:00",
+  "source": {
+    "mode": "rest",
+    "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+    "base_url": "https://api.fabric.microsoft.com"
+  },
+  "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+  "item_count": 6,
+  "items": [
+    {
+      "id": "6582bf14-4e07-4bc8-bf14-9558ab06b18f",
+      "name": "01_cj_from_bronze_to_stg",
+      "type": "CopyJob",
+      "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+      "last_updated": null
+    },
+    {
+      "id": "f7338657-2925-4f67-b4a9-dc11c213549d",
+      "name": "01_pipe_from_bronze_to_stg",
+      "type": "DataPipeline",
+      "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+      "last_updated": null
+    },
+    {
+      "id": "05a3ee0d-c42c-4b72-8780-dfc1fb22f9d6",
+      "name": "lh_sales_analytics",
+      "type": "Lakehouse",
+      "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+      "last_updated": null
+    },
+    {
+      "id": "cb0bef02-937f-46ac-b475-15cf9aa6c75f",
+      "name": "01_nb_bronze_layer_initialization",
+      "type": "Notebook",
+      "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+      "last_updated": null
+    },
+    {
+      "id": "565c7bc3-4e43-401f-acef-ad4b906c91f5",
+      "name": "lh_sales_analytics",
+      "type": "SQLEndpoint",
+      "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+      "last_updated": null
+    },
+    {
+      "id": "1c58f866-1869-44fe-a86c-759422e02503",
+      "name": "wh_sales_analytics",
+      "type": "Warehouse",
+      "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+      "last_updated": null
+    }
+  ]
+}

@@ -1,0 +1,202 @@
+[
+  {
+    "fact_id": "F001",
+    "statement": "El proyecto es un ejercicio de aprendizaje de analytics engineering.",
+    "category": "roadmap",
+    "confidence": "high",
+    "evidence_msg_id": "msg_1",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F002",
+    "statement": "El usuario utiliza macOS con terminal zsh.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "msg_12",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F003",
+    "statement": "Python fue instalado en el sistema.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "msg_4",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F004",
+    "statement": "Las librerías pandas, duckdb y jupyter fueron instaladas usando pip.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "msg_6",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F005",
+    "statement": "El usuario experimentó un error ModuleNotFoundError para pandas.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "msg_8",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F006",
+    "statement": "Se discutió que las instalaciones pip son persistentes (no por sesión).",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "msg_4",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F007",
+    "statement": "Se creó un repositorio llamado SALES ANALYTICS DASHBOARD.",
+    "category": "architecture",
+    "confidence": "high",
+    "evidence_msg_id": "msg_18",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F008",
+    "statement": "La estructura del repositorio incluye carpetas data, notebooks, sql y docs.",
+    "category": "architecture",
+    "confidence": "high",
+    "evidence_msg_id": "msg_18",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F009",
+    "statement": "El flujo inicial de trabajo se basa en CSV como fuente de datos.",
+    "category": "data",
+    "confidence": "high",
+    "evidence_msg_id": "msg_130",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F010",
+    "statement": "Se ejecutó un servidor Jupyter local.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "msg_20",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F011",
+    "statement": "El servidor Jupyter fue ejecutado en el puerto 8890.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "msg_221",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F012",
+    "statement": "Se accedió a Jupyter mediante localhost en navegador.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "msg_221",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F013",
+    "statement": "Se produjo un error 404 al crear notebooks.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "msg_23",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F014",
+    "statement": "El error 404 fue causado por ':' en el nombre de la carpeta.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "msg_24",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F015",
+    "statement": "La solución fue renombrar carpetas para eliminar ':'.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "msg_25",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F016",
+    "statement": "Se creó un notebook llamado 01_data_validation.",
+    "category": "architecture",
+    "confidence": "high",
+    "evidence_msg_id": "msg_27",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F017",
+    "statement": "El notebook se utilizará para validar datasets.",
+    "category": "data",
+    "confidence": "high",
+    "evidence_msg_id": "msg_27",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F018",
+    "statement": "El usuario pidió explicación celda por celda del notebook.",
+    "category": "roadmap",
+    "confidence": "high",
+    "evidence_msg_id": "msg_28",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F019",
+    "statement": "Se decidió validar datos antes de diseñar el modelo analítico.",
+    "category": "architecture",
+    "confidence": "high",
+    "evidence_msg_id": "msg_190",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F020",
+    "statement": "El modelo analítico previsto es un star schema.",
+    "category": "architecture",
+    "confidence": "high",
+    "evidence_msg_id": "msg_130",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F021",
+    "statement": "El usuario tiene experiencia limitada con Python.",
+    "category": "roadmap",
+    "confidence": "medium",
+    "evidence_msg_id": "msg_4",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F022",
+    "statement": "La conversación se volvió lenta por tamaño del historial.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "msg_30",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F023",
+    "statement": "Se generaron documentos para migrar el contexto a otra conversación.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "msg_32",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F024",
+    "statement": "Microsoft Fabric fue definido como objetivo final futuro del proyecto.",
+    "category": "fabric",
+    "confidence": "high",
+    "evidence_msg_id": "msg_40",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F025",
+    "statement": "No se creó ningún artefacto real en Microsoft Fabric durante la conversación.",
+    "category": "fabric",
+    "confidence": "high",
+    "evidence_msg_id": "msg_40",
+    "date": "fecha_no_especificada"
+  }
+]

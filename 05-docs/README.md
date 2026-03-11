@@ -3,6 +3,19 @@
 
 ---
 
+## 0. Canonical Navigation
+
+- Project Rules: `05-docs/PROJECT_RULES.md`
+- Roadmap: `05-docs/ROADMAP.md`
+- Project Memory:
+  - `05-docs/project-memory/PROJECT_STATUS.md`
+  - `05-docs/project-memory/SESSION_LOG.md`
+  - `05-docs/project-memory/NEXT_ACTIONS.md`
+
+Use the project memory files as the official "where we left off" mechanism between sessions.
+
+---
+
 ## 1. Project Purpose
 
 This project implements a complete dimensional modeling pipeline for a transactional sales dataset.
@@ -148,6 +161,21 @@ The current DuckDB implementation serves as:
 
 ---
 
+## 7.1 Fabric-to-Repo Sync (Inventory Drift Control)
+
+To keep local code and Fabric workspace state aligned, use:
+
+- `06-fabric-sync/fabric_sync.py` to generate versioned snapshots of Fabric artifacts
+- `06-fabric-sync/state/fabric_inventory_latest.json` as latest state
+- `06-fabric-sync/state/fabric_inventory_diff_latest.md` as change report
+
+This creates a traceable bridge between:
+
+- what is built in Fabric (workspace artifacts),
+- and what is versioned in this repository.
+
+---
+
 ## 8. Scope Boundaries
 
 This project is intentionally not:
@@ -171,3 +199,9 @@ It is a focused analytics engineering and dimensional modeling implementation.
 - Engine portability
 
 ---
+
+## 10. Archive Note
+
+Historical conversational material exists under `05-docs/context-consolidation/` for traceability.
+
+Canonical decisions and operating rules must be maintained in English in the canonical docs listed in section 0.

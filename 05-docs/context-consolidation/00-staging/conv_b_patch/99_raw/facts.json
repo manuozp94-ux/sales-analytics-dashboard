@@ -1,0 +1,82 @@
+[
+  {
+    "fact_id": "F001",
+    "statement": "orders dataframe shape (99441,9) reportado",
+    "category": "data",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F002",
+    "statement": "611 product_id distintos faltantes entre order_items y products",
+    "category": "data",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F003",
+    "statement": "1604 filas de order_items con product_id faltante (~1.42%)",
+    "category": "data",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F004",
+    "statement": "2 order_reviews con order_id inexistente en orders",
+    "category": "data",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F005",
+    "statement": "DuckDB version reportada v1.4.4",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F006",
+    "statement": "03-sql/models y schema diagnosticados como vac\u00edos",
+    "category": "architecture",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F007",
+    "statement": "error CSV parser en order_reviews_dataset.csv",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F008",
+    "statement": "error parallel scanner requiere parallel=false",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F009",
+    "statement": "conversion exception review_score BIGINT",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F010",
+    "statement": "CatalogException dim_date no existe al validar counts",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  }
+]

@@ -1,0 +1,202 @@
+[
+  {
+    "fact_id": "F001",
+    "statement": "El proyecto incluyó prototipado local con DuckDB y notebooks.",
+    "category": "architecture",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F002",
+    "statement": "Se construyó un star schema durante el prototipado.",
+    "category": "architecture",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F003",
+    "statement": "Se definió un metric contract en un archivo markdown.",
+    "category": "data",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F004",
+    "statement": "Se creó un mart de cohortes con unit economics.",
+    "category": "data",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F005",
+    "statement": "Se decidió migrar a Microsoft Fabric.",
+    "category": "fabric",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F006",
+    "statement": "Existe un Lakehouse en Fabric con tablas Delta.",
+    "category": "fabric",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F007",
+    "statement": "Existe un Warehouse en Fabric.",
+    "category": "fabric",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F008",
+    "statement": "Se utilizó un pipeline Copy Data para mover datos del Lakehouse al Warehouse.",
+    "category": "fabric",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F009",
+    "statement": "Se creó un schema stg en el Warehouse para staging.",
+    "category": "architecture",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F010",
+    "statement": "Se creó un schema core en el Warehouse para el modelo dimensional.",
+    "category": "architecture",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F011",
+    "statement": "La carga del pipeline en modo full copy puede duplicar registros.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F012",
+    "statement": "Se implementaron dimensiones dim_date, dim_customers, dim_products.",
+    "category": "data",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F013",
+    "statement": "Se implementaron dimensiones adicionales dim_payment_types y dim_order_status.",
+    "category": "data",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F014",
+    "statement": "Se implementaron hechos fact_orders, fact_order_items, fact_order_payments, fact_order_reviews.",
+    "category": "data",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F015",
+    "statement": "fact_order_items tiene grain por (order_id, order_item_id).",
+    "category": "data",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F016",
+    "statement": "fact_order_payments tiene grain por (order_id, payment_sequential).",
+    "category": "data",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F017",
+    "statement": "fact_orders tiene grain por order_id.",
+    "category": "data",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F018",
+    "statement": "dim_date se valida por bounds contra stg_orders.",
+    "category": "data",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F019",
+    "statement": "Se creó un script QA para consolidar checks.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F020",
+    "statement": "Se encontró un error de SQL Server/Fabric relacionado con nvarchar(30) no soportado.",
+    "category": "fabric",
+    "confidence": "medium",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F021",
+    "statement": "Se encontró un error por precisión requerida en datetime2 (0-6).",
+    "category": "fabric",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F022",
+    "statement": "Se detectó confusión por tablas creadas en Lakehouse vs queries ejecutadas en Warehouse.",
+    "category": "architecture",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F023",
+    "statement": "Se resolvió un problema de entorno Python creando un venv y registrando un kernel en VS Code.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F024",
+    "statement": "Pylance marcó 'con is not defined' por análisis estático aunque el código corría.",
+    "category": "ops",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  },
+  {
+    "fact_id": "F025",
+    "statement": "No hay evidencia explícita en la conversación sobre RBAC, RLS u OLS.",
+    "category": "security",
+    "confidence": "high",
+    "evidence_msg_id": "UNKNOWN",
+    "date": "fecha_no_especificada"
+  }
+]

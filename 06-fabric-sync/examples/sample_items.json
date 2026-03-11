@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "id": "11111111-1111-1111-1111-111111111111",
+      "displayName": "lh_sales_raw",
+      "type": "Lakehouse",
+      "workspaceId": "00000000-0000-0000-0000-000000000000",
+      "lastUpdatedDateTime": "2026-03-10T17:00:00Z"
+    },
+    {
+      "id": "22222222-2222-2222-2222-222222222222",
+      "displayName": "wh_sales_core",
+      "type": "Warehouse",
+      "workspaceId": "00000000-0000-0000-0000-000000000000",
+      "lastUpdatedDateTime": "2026-03-10T17:05:00Z"
+    },
+    {
+      "id": "33333333-3333-3333-3333-333333333333",
+      "displayName": "pl_copy_lh_to_wh",
+      "type": "DataPipeline",
+      "workspaceId": "00000000-0000-0000-0000-000000000000",
+      "lastUpdatedDateTime": "2026-03-10T17:07:00Z"
+    }
+  ]
+}

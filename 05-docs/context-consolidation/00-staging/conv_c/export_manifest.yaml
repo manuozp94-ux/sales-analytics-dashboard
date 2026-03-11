@@ -1,0 +1,16 @@
+conversation_id: CONV_C
+export_version: 2
+completeness_estimate: 74
+main_topics:
+  - analytics_engineering_pipeline
+  - microsoft_fabric_migration
+  - data_warehouse_modeling
+  - sql_data_quality_checks
+  - pipeline_ingestion_patterns
+  - duckdb_local_prototyping
+unresolved_items_count: 7
+known_limitations:
+  - message identifiers were not available in the transcript; evidence_msg_id marked UNKNOWN where necessary
+  - timestamps for most messages not included in transcript
+  - security configuration discussion absent from conversation
+  - Fabric workspace identifiers not explicitly provided

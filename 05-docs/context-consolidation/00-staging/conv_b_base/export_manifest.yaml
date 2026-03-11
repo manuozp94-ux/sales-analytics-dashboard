@@ -1,0 +1,16 @@
+conversation_id: CONV_B
+export_version: 2
+completeness_estimate: 68
+main_topics:
+- analytics engineering project construction
+- pandas data validation
+- star schema modeling
+- DuckDB materialization
+- project documentation governance
+- conversation migration protocol
+unresolved_items_count: 11
+known_limitations:
+- Message IDs are not exposed by the interface; evidence_msg_id fields use UNKNOWN.
+- Several architectural statements were made in conversation summaries rather than explicit commands.
+- No Microsoft Fabric artifacts actually implemented; Fabric appears only in the export request.
+- Security architecture was not discussed in the conversation.
