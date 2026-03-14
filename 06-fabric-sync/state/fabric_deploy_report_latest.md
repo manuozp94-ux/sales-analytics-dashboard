@@ -1,6 +1,6 @@
 # Fabric Deploy Report
 
-- Generated (UTC): `2026-03-11T18:10:03+00:00`
+- Generated (UTC): `2026-03-12T21:10:23+00:00`
 - Action: `dry-run`
 - Workspace: `1fd8df3e-883f-49d3-9386-d236f8b272ba`
 - Current items discovered: **3**

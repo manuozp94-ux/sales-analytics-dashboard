@@ -8,6 +8,9 @@ parameters:
 - name: runFabricApply
   type: boolean
   default: false
+- name: runWarehouseProbe
+  type: boolean
+  default: true
 - name: fabricDeployManifest
   type: string
   default: "06-fabric-sync/examples/p0_first_cycle_manifest.json"
@@ -69,6 +72,89 @@ stages:
           --input-current 06-fabric-sync/examples/sample_items.json \
           --desired-state "${{ parameters.fabricDeployManifest }}"
       displayName: "Validate Fabric deploy manifest (dry-run)"
+
+- stage: warehouse_probe
+  displayName: "Fabric Warehouse Probe"
+  dependsOn: fabric_dry_run
+  condition: and(succeeded(), eq(${{ parameters.runWarehouseProbe }}, true), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - job: probe_workspace
+    displayName: "Probe Warehouse metadata"
+    pool:
+      ${{ if eq(parameters.useSelfHosted, true) }}:
+        name: ${{ parameters.selfHostedPool }}
+      ${{ if ne(parameters.useSelfHosted, true) }}:
+        vmImage: ubuntu-latest
+    steps:
+    - checkout: self
+
+    - ${{ if ne(parameters.useSelfHosted, true) }}:
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: "3.11"
+          addToPath: true
+
+    - script: |
+        set -euo pipefail
+
+        for required_var in FABRIC_TENANT_ID FABRIC_CLIENT_ID FABRIC_CLIENT_SECRET; do
+          if [ -z "${!required_var:-}" ]; then
+            echo "Missing required pipeline variable: ${required_var}."
+            exit 1
+          fi
+        done
+
+        token_response="$(curl -sS -X POST "https://login.microsoftonline.com/${FABRIC_TENANT_ID}/oauth2/v2.0/token" \
+          -H "Content-Type: application/x-www-form-urlencoded" \
+          --data-urlencode "client_id=${FABRIC_CLIENT_ID}" \
+          --data-urlencode "client_secret=${FABRIC_CLIENT_SECRET}" \
+          --data-urlencode "grant_type=client_credentials" \
+          --data-urlencode "scope=https://api.fabric.microsoft.com/.default")"
+
+        access_token="$(echo "${token_response}" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("access_token",""))')"
+
+        if [ -z "${access_token}" ]; then
+          echo "Failed to acquire Fabric bearer token from service principal credentials."
+          echo "${token_response}"
+          exit 1
+        fi
+
+        echo "##vso[task.setvariable variable=FABRIC_BEARER_TOKEN_RUNTIME;issecret=true]${access_token}"
+        echo "Fabric bearer token generated for warehouse probe."
+      displayName: "Resolve Fabric bearer token (probe)"
+      env:
+        FABRIC_TENANT_ID: $(FABRIC_TENANT_ID)
+        FABRIC_CLIENT_ID: $(FABRIC_CLIENT_ID)
+        FABRIC_CLIENT_SECRET: $(FABRIC_CLIENT_SECRET)
+
+    - script: |
+        set -euo pipefail
+
+        if [ -z "${FABRIC_WORKSPACE_ID_INPUT:-}" ]; then
+          echo "Missing required pipeline variable: FABRIC_WORKSPACE_ID"
+          exit 1
+        fi
+
+        mkdir -p 06-fabric-sync/state/warehouse-probe
+
+        python3 06-fabric-sync/fabric_warehouse_probe.py \
+          --mode rest \
+          --workspace-id "${FABRIC_WORKSPACE_ID_INPUT}" \
+          --token-env FABRIC_BEARER_TOKEN_RUNTIME \
+          --output-json 06-fabric-sync/state/warehouse-probe/warehouse_probe_latest.json \
+          --output-md 06-fabric-sync/state/warehouse-probe/warehouse_probe_latest.md \
+          --fail-if-no-warehouse
+      displayName: "Run Warehouse probe"
+      env:
+        FABRIC_WORKSPACE_ID_INPUT: $(FABRIC_WORKSPACE_ID)
+        FABRIC_BEARER_TOKEN_RUNTIME: $(FABRIC_BEARER_TOKEN_RUNTIME)
+
+    - task: PublishPipelineArtifact@1
+      displayName: "Publish Warehouse probe artifact"
+      inputs:
+        targetPath: 06-fabric-sync/state/warehouse-probe
+        artifact: fabric-warehouse-probe
+        publishLocation: pipeline
 
 - stage: fabric_apply
   displayName: "Fabric Deploy Apply (Manual Gate)"

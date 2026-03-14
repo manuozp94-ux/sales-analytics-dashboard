@@ -1,0 +1,247 @@
+{
+  "generated_utc": "2026-03-14T03:46:18+00:00",
+  "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+  "source": {
+    "label": "fabric_fixture_fail_kpi",
+    "engine": "fabric_warehouse",
+    "warehouse_name": "wh_sales_analytics"
+  },
+  "contract": {
+    "version": "2026-03-14",
+    "required_objects": [
+      "dim_date",
+      "dim_customers",
+      "dim_products",
+      "fact_orders",
+      "fact_order_items",
+      "fact_order_payments",
+      "fact_order_reviews",
+      "mart_monthly_business_snapshot",
+      "mart_cohort_unit_economics",
+      "mart_customer_ltv_summary"
+    ],
+    "required_kpis": [
+      "total_orders",
+      "approval_rate",
+      "on_time_delivery_rate",
+      "avg_delivery_time_days",
+      "gmv",
+      "revenue_total",
+      "avg_order_value",
+      "avg_items_per_order",
+      "freight_ratio",
+      "avg_review_score"
+    ],
+    "kpi_types": {
+      "total_orders": "count",
+      "approval_rate": "rate",
+      "on_time_delivery_rate": "rate",
+      "avg_delivery_time_days": "average",
+      "gmv": "money",
+      "revenue_total": "money",
+      "avg_order_value": "average",
+      "avg_items_per_order": "average",
+      "freight_ratio": "rate",
+      "avg_review_score": "average"
+    },
+    "acceptance_tolerances": {
+      "count_exact": 0.0,
+      "money_absolute": 0.01,
+      "average_absolute": 0.01,
+      "rate_absolute": 0.0005
+    },
+    "qa_expected": {
+      "grain_checks": 7,
+      "null_key_checks": 17,
+      "orphan_checks": 12
+    }
+  },
+  "counts": {
+    "dim_date": 774,
+    "dim_customers": 99441,
+    "dim_products": 32951,
+    "fact_orders": 99441,
+    "fact_order_items": 112650,
+    "fact_order_payments": 103886,
+    "fact_order_reviews": 100000,
+    "mart_monthly_business_snapshot": 24,
+    "mart_cohort_unit_economics": 24,
+    "mart_customer_ltv_summary": 98816
+  },
+  "kpis": {
+    "total_orders": 99441.0,
+    "approval_rate": 0.9998077234455959,
+    "on_time_delivery_rate": 0.9188001409647796,
+    "avg_delivery_time_days": 12.496848761272934,
+    "gmv": 13591643.70001419,
+    "revenue_total": 15843554.489998734,
+    "avg_order_value": 137.75407637903828,
+    "avg_items_per_order": 1.1417306873695092,
+    "freight_ratio": 0.16568338529929819,
+    "avg_review_score": 4.07089
+  },
+  "qa": {
+    "grain": {
+      "violations_total": 0,
+      "checks": [
+        {
+          "name": "dim_date_pk_unique",
+          "violation_count": 0
+        },
+        {
+          "name": "dim_customers_pk_unique",
+          "violation_count": 0
+        },
+        {
+          "name": "dim_products_pk_unique",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_orders_grain_order_id",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_items_grain_order_item",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_payments_grain_payment_seq",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_reviews_grain_review_order",
+          "violation_count": 0
+        }
+      ]
+    },
+    "null_keys": {
+      "violations_total": 0,
+      "checks": [
+        {
+          "name": "dim_date_date_key_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "dim_customers_customer_id_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "dim_products_product_id_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_orders_order_id_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_orders_customer_id_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_orders_purchase_date_key_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_items_order_id_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_items_order_item_id_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_items_customer_id_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_items_product_id_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_items_date_key_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_payments_order_id_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_payments_customer_id_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_payments_purchase_date_key_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_reviews_order_id_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_reviews_customer_id_nulls",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_reviews_purchase_date_key_nulls",
+          "violation_count": 0
+        }
+      ]
+    },
+    "orphans": {
+      "violations_total": 0,
+      "checks": [
+        {
+          "name": "fact_orders_orphans_dim_customers",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_orders_orphans_dim_date",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_items_orphans_fact_orders",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_items_orphans_dim_customers",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_items_orphans_dim_products",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_items_orphans_dim_date",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_payments_orphans_fact_orders",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_payments_orphans_dim_customers",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_payments_orphans_dim_date",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_reviews_orphans_fact_orders",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_reviews_orphans_dim_customers",
+          "violation_count": 0
+        },
+        {
+          "name": "fact_order_reviews_orphans_dim_date",
+          "violation_count": 0
+        }
+      ]
+    }
+  },
+  "qa_violations_total": 0,
+  "required_kpi_count": 10,
+  "status": "FAIL"
+}

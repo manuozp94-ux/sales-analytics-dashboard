@@ -1,0 +1,510 @@
+{
+  "generated_utc": "2026-03-14T19:42:14+00:00",
+  "inputs": {
+    "local": "/Users/manuel.orozco/Desktop/SALES ANALYTICS DASHBOARD/06-fabric-sync/state/parity/parity_local_latest.json",
+    "fabric": "/Users/manuel.orozco/Desktop/SALES ANALYTICS DASHBOARD/06-fabric-sync/state/parity/parity_fabric_latest.json"
+  },
+  "summary": {
+    "counts_passed": true,
+    "qa_passed": true,
+    "kpis_passed": true,
+    "overall_passed": true,
+    "counts_total": 10,
+    "counts_failed": 0,
+    "qa_total": 36,
+    "qa_failed": 0,
+    "kpis_total": 10,
+    "kpis_failed": 0
+  },
+  "counts": [
+    {
+      "object_name": "dim_date",
+      "local_count": 774,
+      "fabric_count": 774,
+      "diff": 0,
+      "passed": true
+    },
+    {
+      "object_name": "dim_customers",
+      "local_count": 99441,
+      "fabric_count": 99441,
+      "diff": 0,
+      "passed": true
+    },
+    {
+      "object_name": "dim_products",
+      "local_count": 32951,
+      "fabric_count": 32951,
+      "diff": 0,
+      "passed": true
+    },
+    {
+      "object_name": "fact_orders",
+      "local_count": 99441,
+      "fabric_count": 99441,
+      "diff": 0,
+      "passed": true
+    },
+    {
+      "object_name": "fact_order_items",
+      "local_count": 112650,
+      "fabric_count": 112650,
+      "diff": 0,
+      "passed": true
+    },
+    {
+      "object_name": "fact_order_payments",
+      "local_count": 103886,
+      "fabric_count": 103886,
+      "diff": 0,
+      "passed": true
+    },
+    {
+      "object_name": "fact_order_reviews",
+      "local_count": 100000,
+      "fabric_count": 100000,
+      "diff": 0,
+      "passed": true
+    },
+    {
+      "object_name": "mart_monthly_business_snapshot",
+      "local_count": 24,
+      "fabric_count": 24,
+      "diff": 0,
+      "passed": true
+    },
+    {
+      "object_name": "mart_cohort_unit_economics",
+      "local_count": 24,
+      "fabric_count": 24,
+      "diff": 0,
+      "passed": true
+    },
+    {
+      "object_name": "mart_customer_ltv_summary",
+      "local_count": 98816,
+      "fabric_count": 98816,
+      "diff": 0,
+      "passed": true
+    }
+  ],
+  "qa": [
+    {
+      "section": "grain",
+      "check_name": "dim_date_pk_unique",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "grain",
+      "check_name": "dim_customers_pk_unique",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "grain",
+      "check_name": "dim_products_pk_unique",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "grain",
+      "check_name": "fact_orders_grain_order_id",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "grain",
+      "check_name": "fact_order_items_grain_order_item",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "grain",
+      "check_name": "fact_order_payments_grain_payment_seq",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "grain",
+      "check_name": "fact_order_reviews_grain_review_order",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "dim_date_date_key_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "dim_customers_customer_id_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "dim_products_product_id_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "fact_orders_order_id_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "fact_orders_customer_id_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "fact_orders_purchase_date_key_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "fact_order_items_order_id_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "fact_order_items_order_item_id_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "fact_order_items_customer_id_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "fact_order_items_product_id_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "fact_order_items_date_key_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "fact_order_payments_order_id_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "fact_order_payments_customer_id_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "fact_order_payments_purchase_date_key_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "fact_order_reviews_order_id_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "fact_order_reviews_customer_id_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "null_keys",
+      "check_name": "fact_order_reviews_purchase_date_key_nulls",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "orphans",
+      "check_name": "fact_orders_orphans_dim_customers",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "orphans",
+      "check_name": "fact_orders_orphans_dim_date",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "orphans",
+      "check_name": "fact_order_items_orphans_fact_orders",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "orphans",
+      "check_name": "fact_order_items_orphans_dim_customers",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "orphans",
+      "check_name": "fact_order_items_orphans_dim_products",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "orphans",
+      "check_name": "fact_order_items_orphans_dim_date",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "orphans",
+      "check_name": "fact_order_payments_orphans_fact_orders",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "orphans",
+      "check_name": "fact_order_payments_orphans_dim_customers",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "orphans",
+      "check_name": "fact_order_payments_orphans_dim_date",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "orphans",
+      "check_name": "fact_order_reviews_orphans_fact_orders",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "orphans",
+      "check_name": "fact_order_reviews_orphans_dim_customers",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    },
+    {
+      "section": "orphans",
+      "check_name": "fact_order_reviews_orphans_dim_date",
+      "local_violations": 0,
+      "fabric_violations": 0,
+      "exact_match": true,
+      "zero_guardrail": true,
+      "passed": true
+    }
+  ],
+  "kpis": [
+    {
+      "metric_name": "total_orders",
+      "metric_type": "count",
+      "local_value": 99441.0,
+      "fabric_value": 99441.0,
+      "abs_diff": 0.0,
+      "tolerance": 0.0,
+      "passed": true
+    },
+    {
+      "metric_name": "approval_rate",
+      "metric_type": "rate",
+      "local_value": 0.9998077234455959,
+      "fabric_value": 0.999807723445596,
+      "abs_diff": 1.1102230246251565e-16,
+      "tolerance": 0.0005,
+      "passed": true
+    },
+    {
+      "metric_name": "on_time_delivery_rate",
+      "metric_type": "rate",
+      "local_value": 0.9188001409647796,
+      "fabric_value": 0.91880014096478,
+      "abs_diff": 4.440892098500626e-16,
+      "tolerance": 0.0005,
+      "passed": true
+    },
+    {
+      "metric_name": "avg_delivery_time_days",
+      "metric_type": "average",
+      "local_value": 12.496848761272934,
+      "fabric_value": 12.4968487612729,
+      "abs_diff": 3.375077994860476e-14,
+      "tolerance": 0.01,
+      "passed": true
+    },
+    {
+      "metric_name": "gmv",
+      "metric_type": "money",
+      "local_value": 13591643.70001419,
+      "fabric_value": 13591643.7000115,
+      "abs_diff": 2.691522240638733e-06,
+      "tolerance": 0.01,
+      "passed": true
+    },
+    {
+      "metric_name": "revenue_total",
+      "metric_type": "money",
+      "local_value": 15843553.239998734,
+      "fabric_value": 15843553.239999,
+      "abs_diff": 2.6635825634002686e-07,
+      "tolerance": 0.01,
+      "passed": true
+    },
+    {
+      "metric_name": "avg_order_value",
+      "metric_type": "average",
+      "local_value": 137.75407637903828,
+      "fabric_value": 137.754076379011,
+      "abs_diff": 2.7284841053187847e-11,
+      "tolerance": 0.01,
+      "passed": true
+    },
+    {
+      "metric_name": "avg_items_per_order",
+      "metric_type": "average",
+      "local_value": 1.1417306873695092,
+      "fabric_value": 1.14173068736951,
+      "abs_diff": 6.661338147750939e-16,
+      "tolerance": 0.01,
+      "passed": true
+    },
+    {
+      "metric_name": "freight_ratio",
+      "metric_type": "rate",
+      "local_value": 0.16568338529929819,
+      "fabric_value": 0.165683385299308,
+      "abs_diff": 9.825473767932635e-15,
+      "tolerance": 0.0005,
+      "passed": true
+    },
+    {
+      "metric_name": "avg_review_score",
+      "metric_type": "average",
+      "local_value": 4.07089,
+      "fabric_value": 4.07089,
+      "abs_diff": 0.0,
+      "tolerance": 0.01,
+      "passed": true
+    }
+  ],
+  "status": "PASS"
+}

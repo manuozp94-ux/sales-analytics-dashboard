@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-03-11T18:10:03+00:00",
+  "generated_utc": "2026-03-12T21:10:23+00:00",
   "action": "dry-run",
   "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
   "manifest_path": "/Users/manuel.orozco/Desktop/SALES ANALYTICS DASHBOARD/06-fabric-sync/examples/p0_first_cycle_manifest.json",
@@ -23,8 +23,8 @@
     "operation_count": 1,
     "method_counts": {
       "PATCH": 1,
-      "POST": 0,
       "PUT": 0,
+      "POST": 0,
       "DELETE": 0
     }
   },

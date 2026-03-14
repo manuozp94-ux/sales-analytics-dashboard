@@ -76,6 +76,12 @@ PRs should pass baseline checks for:
 - Markdown relative link checks.
 - Artifact policy checks (heavy file guardrails).
 
+Before proposing a commit or closing a non-trivial work session, run one short optimization sweep:
+
+- remove low-risk noise such as unused output columns, redundant joins/aliases/CTEs, and stale compatibility paths,
+- simplify verification output when it adds mostly null or non-decision-useful information,
+- rerun the existing validation path after cleanup when possible.
+
 ## Release Cadence
 
 - Create one weekly milestone tag: `portfolio-week-XX`.
@@ -89,6 +95,15 @@ PRs should pass baseline checks for:
 - Azure DevOps:
   - Boards for delivery planning,
   - Pipelines for enterprise-style orchestration.
+
+## Warehouse SQL Apply Boundary
+
+- Editing files under `06-fabric-sync/sql/fabric-warehouse/` changes the repo only.
+- Live Warehouse changes happen only after those scripts are executed:
+  - in the Fabric SQL editor, or
+  - through `06-fabric-sync/scripts/apply_warehouse_sql_pack.sh`.
+- If `sqlcmd` is used, the command runs on the local machine or pipeline agent; Fabric Warehouse is the remote execution target.
+- Re-run the parity path after material Warehouse SQL changes before treating Power BI outputs as current.
 
 ## Fabric Evidence Requirement
 

@@ -128,3 +128,18 @@ Each Fabric change note must include links to impacted local artifacts (SQL, doc
   - no mixed unrelated scopes in one commit,
   - PR metadata includes one curation track label.
 - Reference workflow: `05-docs/HISTORY_CURATION_STRATEGY.md`.
+
+## 12. Optimization Sweep
+
+Before proposing a commit, recommending session close, or marking non-trivial work complete:
+
+1. Run a short optimization sweep.
+2. Remove low-risk noise such as:
+   - unused output columns,
+   - redundant joins/aliases/CTEs,
+   - stale compatibility branches that are no longer canonical,
+   - verification fields that produce mostly null or low-value output.
+3. Keep changes behavior-safe:
+   - do not change business logic unless explicitly intended,
+   - prefer simplification over broad refactors.
+4. Re-run existing validation after the sweep when possible.

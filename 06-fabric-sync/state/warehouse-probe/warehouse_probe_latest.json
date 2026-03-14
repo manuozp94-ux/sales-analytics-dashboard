@@ -1,0 +1,106 @@
+{
+  "generated_utc": "2026-03-14T05:39:55+00:00",
+  "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+  "source": {
+    "mode": "file",
+    "base_url": null,
+    "input": "06-fabric-sync/state/fabric_inventory_latest.json"
+  },
+  "summary": {
+    "item_count": 6,
+    "warehouse_count": 1,
+    "sql_endpoint_count": 1,
+    "query_candidate_count": 1,
+    "naming_issue_count": 0
+  },
+  "item_type_counts": {
+    "CopyJob": 1,
+    "DataPipeline": 1,
+    "Lakehouse": 1,
+    "Notebook": 1,
+    "SQLEndpoint": 1,
+    "Warehouse": 1
+  },
+  "workspace_items": [
+    {
+      "id": "6582bf14-4e07-4bc8-bf14-9558ab06b18f",
+      "name": "01_cj_from_bronze_to_stg",
+      "type": "CopyJob",
+      "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+      "last_updated": null
+    },
+    {
+      "id": "f7338657-2925-4f67-b4a9-dc11c213549d",
+      "name": "01_pipe_from_bronze_to_stg",
+      "type": "DataPipeline",
+      "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+      "last_updated": null
+    },
+    {
+      "id": "05a3ee0d-c42c-4b72-8780-dfc1fb22f9d6",
+      "name": "lh_sales_analytics",
+      "type": "Lakehouse",
+      "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+      "last_updated": null
+    },
+    {
+      "id": "cb0bef02-937f-46ac-b475-15cf9aa6c75f",
+      "name": "01_nb_bronze_layer_initialization",
+      "type": "Notebook",
+      "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+      "last_updated": null
+    },
+    {
+      "id": "565c7bc3-4e43-401f-acef-ad4b906c91f5",
+      "name": "lh_sales_analytics",
+      "type": "SQLEndpoint",
+      "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+      "last_updated": null
+    },
+    {
+      "id": "1c58f866-1869-44fe-a86c-759422e02503",
+      "name": "wh_sales_analytics",
+      "type": "Warehouse",
+      "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+      "last_updated": null
+    }
+  ],
+  "query_candidates": [
+    {
+      "id": "565c7bc3-4e43-401f-acef-ad4b906c91f5",
+      "name": "lh_sales_analytics",
+      "type": "SQLEndpoint",
+      "workspace_id": "1fd8df3e-883f-49d3-9386-d236f8b272ba",
+      "last_updated": null
+    }
+  ],
+  "naming_issues": [],
+  "contract_scan": {
+    "required_objects": [
+      "dim_date",
+      "dim_customers",
+      "dim_products",
+      "fact_orders",
+      "fact_order_items",
+      "fact_order_payments",
+      "fact_order_reviews",
+      "mart_monthly_business_snapshot",
+      "mart_cohort_unit_economics",
+      "mart_customer_ltv_summary"
+    ],
+    "workspace_name_matches": [],
+    "workspace_name_missing": [
+      "dim_customers",
+      "dim_date",
+      "dim_products",
+      "fact_order_items",
+      "fact_order_payments",
+      "fact_order_reviews",
+      "fact_orders",
+      "mart_cohort_unit_economics",
+      "mart_customer_ltv_summary",
+      "mart_monthly_business_snapshot"
+    ]
+  },
+  "warehouses": []
+}

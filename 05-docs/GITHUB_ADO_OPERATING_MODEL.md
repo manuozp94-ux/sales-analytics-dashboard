@@ -29,6 +29,17 @@ This project uses a split collaboration model:
   - enterprise-aligned execution orchestration,
   - optional deployment workflows for Fabric-facing automation.
 
+## Warehouse SQL Apply Boundary
+
+- GitHub/repo remains the source of truth for Warehouse SQL under `06-fabric-sync/sql/fabric-warehouse/`.
+- `sqlcmd` is the CLI execution interface for applying those SQL files to Fabric Warehouse.
+- `sqlcmd` can run:
+  - locally from a terminal, or
+  - inside an Azure DevOps agent job.
+- In both cases, the command runs on the host machine/agent while the SQL executes in the remote Fabric Warehouse.
+- Current Azure DevOps pipeline stages focus on Fabric REST deploy/probe operations.
+- Warehouse SQL apply is now scaffolded via `06-fabric-sync/scripts/apply_warehouse_sql_pack.sh` so the same execution path can be reused later in DevOps without duplicating the script order in YAML.
+
 ## Work Tracking Standard
 
 - Each weekly milestone has:

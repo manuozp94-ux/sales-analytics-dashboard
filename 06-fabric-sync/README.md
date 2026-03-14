@@ -15,6 +15,10 @@ This workflow stores a versionable inventory of Fabric workspace artifacts and g
 - `06-fabric-sync/state/fabric_inventory_diff_latest.md`
 - `06-fabric-sync/state/fabric_deploy_plan_latest.json` (deploy scaffold)
 - `06-fabric-sync/state/fabric_deploy_report_latest.md` (deploy scaffold)
+- `06-fabric-sync/state/parity/parity_local_latest.json`
+- `06-fabric-sync/state/parity/parity_fabric_latest.json`
+- `06-fabric-sync/state/parity/parity_compare_latest.json`
+- `06-fabric-sync/state/parity/parity_compare_latest.md`
 
 ## Mode 1: Fabric API (Recommended)
 
@@ -79,21 +83,142 @@ Guardrails:
 - `DELETE` operations are blocked unless `--allow-delete` is explicitly passed.
 - `apply` requires `--confirm-apply YES`.
 
+## Mode 4: Warehouse SQL Apply Scaffold (`sqlcmd`)
+
+Use `06-fabric-sync/scripts/apply_warehouse_sql_pack.sh` when Warehouse SQL should be applied from the repo instead of manually running each file in the Fabric editor.
+
+Preview the ordered pack:
+
+```bash
+./06-fabric-sync/scripts/apply_warehouse_sql_pack.sh --print-only
+```
+
+Apply the canonical pack:
+
+```bash
+./06-fabric-sync/scripts/apply_warehouse_sql_pack.sh \
+  --confirm-apply YES \
+  -- \
+  -S "<warehouse_sql_endpoint>" \
+  -d "wh_sales_analytics" \
+  -U "<sql_user>" \
+  -P "<sql_password>"
+```
+
+Important:
+
+- `sqlcmd` belongs to the CLI/execution layer, not the Fabric UI.
+- `sqlcmd` runs on the local machine or CI agent; the SQL executes in the remote Fabric Warehouse.
+- Arguments after `--` are forwarded directly to `sqlcmd`, so authentication stays environment-specific.
+- Optional cleanup/reset scripts stay opt-in:
+  - `--include-legacy-cleanup`
+  - `--include-reset`
+
+Service principal note:
+
+- If you want local service-principal auth without Azure CLI, first run:
+
+```bash
+FABRIC_TENANT_ID="<tenant-id>" \
+FABRIC_CLIENT_ID="<client-id>" \
+FABRIC_CLIENT_SECRET="<client-secret>" \
+FABRIC_WORKSPACE_ID="1fd8df3e-883f-49d3-9386-d236f8b272ba" \
+./06-fabric-sync/scripts/bootstrap_fabric_service_principal.sh
+```
+
+- Then run the Warehouse apply:
+
+```bash
+./06-fabric-sync/scripts/apply_warehouse_sql_pack.sh \
+  --confirm-apply YES \
+  -- \
+  -S "4vqh6h2ymvqe3j4qf72umvdr5m-h3p5qhz7rdjute4g2i3prmtsxi.datawarehouse.fabric.microsoft.com,1433" \
+  -d "wh_sales_analytics" \
+  --authentication-method ActiveDirectoryServicePrincipal \
+  -U "<client-id>" \
+  -P "<client-secret>"
+```
+
+## Mode 5: Parity Baseline + Comparison Gate
+
+Generate local baseline from DuckDB:
+
+```bash
+python3 06-fabric-sync/fabric_parity_baseline.py \
+  --out-json 06-fabric-sync/state/parity/parity_local_latest.json
+```
+
+Generate Fabric parity payload manually (template + SQL query pack):
+
+- Template: `06-fabric-sync/examples/parity/fabric_parity_baseline_template.json`
+- SQL pack: `06-fabric-sync/sql/fabric-warehouse/40_parity_query_pack.sql`
+- Output target: `06-fabric-sync/state/parity/parity_fabric_latest.json`
+
+Run parity comparison:
+
+```bash
+python3 06-fabric-sync/fabric_parity_compare.py \
+  --local 06-fabric-sync/state/parity/parity_local_latest.json \
+  --fabric 06-fabric-sync/state/parity/parity_fabric_latest.json \
+  --out-json 06-fabric-sync/state/parity/parity_compare_latest.json \
+  --out-md 06-fabric-sync/state/parity/parity_compare_latest.md
+```
+
+Exit code semantics:
+
+- `0` -> parity `PASS` (publication path can proceed)
+- `1` -> parity `FAIL` (publication path is blocked until remediation)
+
+Runbook:
+
+- `06-fabric-sync/RUNBOOK_FABRIC_WAREHOUSE_PARITY.md`
+
+## Mode 6: Warehouse Probe (Inventory + Metadata Reachability)
+
+Run locally (live REST mode):
+
+```bash
+export FABRIC_BEARER_TOKEN="<your_token>"
+
+python3 06-fabric-sync/fabric_warehouse_probe.py \
+  --mode rest \
+  --workspace-id "<fabric_workspace_id>" \
+  --output-json 06-fabric-sync/state/warehouse-probe/warehouse_probe_latest.json \
+  --output-md 06-fabric-sync/state/warehouse-probe/warehouse_probe_latest.md
+```
+
+What it captures:
+
+- workspace inventory focused on `Warehouse` and `SQLEndpoint` items,
+- naming-rule scan (`snake_case`) on workspace item names,
+- Warehouse REST metadata probes (`get`, `connectionString`, and catalog candidates),
+- operator report for troubleshooting before parity remediation.
+
+Important:
+
+- This probe is workspace-item level evidence.
+- Table/view/module definitions still require SQL-catalog query execution in Warehouse (`41_warehouse_catalog_probe.sql`).
+
 ## Azure Pipeline Integration
 
 - `azure-pipelines.yml` now includes:
   - `quality` stage (repo checks),
   - `fabric_dry_run` stage (manifest validation),
+  - `warehouse_probe` stage (warehouse metadata probe + artifact),
   - `fabric_apply` stage (manual approval + apply).
+- Current pipeline does not apply Warehouse SQL by default.
+- The Warehouse SQL scaffold lives in `06-fabric-sync/scripts/apply_warehouse_sql_pack.sh` so the same execution path can be used locally first and later from an Azure DevOps agent.
 - `fabric_apply` only runs when:
   - parameter `runFabricApply=true`,
   - branch is `main`,
   - manual approval is granted.
+- `warehouse_probe` runs when:
+  - parameter `runWarehouseProbe=true`,
+  - branch is `main`.
 - Required pipeline variables for apply:
   - `FABRIC_WORKSPACE_ID`
-- Authentication options in pipeline:
-  - Option A (recommended): `FABRIC_TENANT_ID`, `FABRIC_CLIENT_ID`, `FABRIC_CLIENT_SECRET` (secrets) and token is generated at runtime.
-  - Option B: provide `FABRIC_BEARER_TOKEN` directly as a secret variable.
+- Authentication path in pipeline:
+  - `FABRIC_TENANT_ID`, `FABRIC_CLIENT_ID`, `FABRIC_CLIENT_SECRET` (secrets) -> token generated at runtime.
 
 ## Normalized Fields
 
@@ -107,11 +232,15 @@ Per artifact:
 
 ## Recommended Workflow
 
-1. Complete a change in Fabric.
-2. Run `fabric_sync.py`.
-3. Review `fabric_inventory_diff_latest.md`.
-4. Create a short change note in `06-fabric-sync/notes/` using `FABRIC_CHANGE_NOTE_TEMPLATE.md`.
-5. Commit snapshot, diff, and note with related SQL/notebook/doc changes.
+1. Change the repo SQL/docs or Fabric items intentionally.
+2. Run repo validation and review the diff.
+3. If Warehouse SQL changed, apply it in the Fabric editor or via `06-fabric-sync/scripts/apply_warehouse_sql_pack.sh`.
+4. If top-level Fabric items changed, run `fabric_sync.py` and review `fabric_inventory_diff_latest.md`.
+5. Run local parity baseline (`fabric_parity_baseline.py`).
+6. Capture Fabric parity payload and run `fabric_parity_compare.py`.
+7. If parity status is `PASS`, continue to report publication steps.
+8. Create a short change note in `06-fabric-sync/notes/` using `FABRIC_CHANGE_NOTE_TEMPLATE.md`.
+9. Commit snapshot, parity artifacts, and note with related SQL/notebook/doc changes.
 
 ## Required Standard
 

@@ -4,11 +4,12 @@ Public portfolio project focused on **Analytics Engineering** with strong Data A
 
 ## Resume Here
 
-Use these three files to resume work in under 2 minutes:
+Use these files to resume work in under 2 minutes:
 
 - [PROJECT_STATUS.md](05-docs/project-memory/PROJECT_STATUS.md)
 - [SESSION_LOG.md](05-docs/project-memory/SESSION_LOG.md)
 - [NEXT_ACTIONS.md](05-docs/project-memory/NEXT_ACTIONS.md)
+- [RESUME_NEXT_SESSION.md](05-docs/project-memory/RESUME_NEXT_SESSION.md)
 
 ## Session Close Checklist (Manual)
 
@@ -41,7 +42,9 @@ Before ending a work session, manually update:
 - [GitHub + Azure DevOps Model](05-docs/GITHUB_ADO_OPERATING_MODEL.md)
 - [Model Overview](05-docs/README.md)
 - [Metric Contract](05-docs/PHASE_4_METRIC_CONTRACT.md)
+- [Case Study Draft (Week 2)](05-docs/case-study/CASE_STUDY_DRAFT.md)
 - [Fabric Sync Bridge](06-fabric-sync/README.md)
+- [Fabric Warehouse Parity Runbook](06-fabric-sync/RUNBOOK_FABRIC_WAREHOUSE_PARITY.md)
 - [Fabric Change Note Template](06-fabric-sync/notes/FABRIC_CHANGE_NOTE_TEMPLATE.md)
 - [Contributing Guide](CONTRIBUTING.md)
 - [Certification Tracker](05-docs/CERTIFICATION_TRACKER.md)

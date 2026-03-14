@@ -175,6 +175,19 @@ This creates a traceable bridge between:
 - what is built in Fabric (workspace artifacts),
 - and what is versioned in this repository.
 
+## 7.2 Fabric Parity Gate (Architecture Before Visualization)
+
+Parity tooling is implemented under `06-fabric-sync/`:
+
+- `fabric_parity_baseline.py` (local DuckDB baseline)
+- `fabric_parity_compare.py` (local vs Fabric comparator, hard PASS/FAIL)
+- `parity_contract.py` (frozen contract for objects, KPIs, and QA checks)
+- `RUNBOOK_FABRIC_WAREHOUSE_PARITY.md` (manual Fabric execution runbook)
+
+Publication rule:
+
+- Power BI public release is blocked until parity comparison returns `PASS`.
+
 ---
 
 ## 8. Scope Boundaries
@@ -206,3 +219,10 @@ It is a focused analytics engineering and dimensional modeling implementation.
 Historical conversational material exists under `05-docs/context-consolidation/` for traceability.
 
 Canonical decisions and operating rules must be maintained in English in the canonical docs listed in section 0.
+
+---
+
+## 11. Case Study Assets (Week 2)
+
+- `05-docs/case-study/CASE_STUDY_DRAFT.md`
+- `05-docs/case-study/CASE_STUDY_EVIDENCE_2026-03-12.md`
