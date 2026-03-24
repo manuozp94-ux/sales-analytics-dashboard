@@ -100,6 +100,12 @@ Minimum evidence pack required:
 
 Each Fabric change note must include links to impacted local artifacts (SQL, docs, or notebooks).
 
+## 8.1 Fabric Consulting Standard
+
+- Use `06-fabric-sync/FABRIC_CONSULTING_STANDARD.md` as the canonical operating standard for reusable Fabric client delivery.
+- For client-ready or reusable delivery work, keep the contract bundle under `06-fabric-sync/contracts/` current.
+- Treat environment, semantic-model, and governance contracts as delivery inputs, not optional afterthoughts.
+
 ## 9. Release Cadence
 
 - Create one weekly milestone tag using `portfolio-week-XX`.

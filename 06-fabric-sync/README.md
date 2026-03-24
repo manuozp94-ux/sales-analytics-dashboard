@@ -8,6 +8,24 @@ This workflow stores a versionable inventory of Fabric workspace artifacts and g
 - Keep commit-level traceability of artifact additions/changes/removals.
 - Detect workspace drift across sessions.
 
+## Consulting Standard and Contracts
+
+Use these files when the workflow should behave like a reusable client-delivery accelerator instead of a one-off project:
+
+- `06-fabric-sync/FABRIC_CONSULTING_STANDARD.md`
+- `06-fabric-sync/contracts/`
+- `07-fabric-bootstrap/`
+- `06-fabric-sync/sql_pack_manifest.py`
+- `06-fabric-sync/fabric_sql_guardrails.py`
+
+What they add:
+
+- one canonical operating standard for Warehouse-first vs hybrid Fabric delivery,
+- starter contracts for engagement, environment, semantic model, and governance,
+- one placeholder-safe onboarding package for other repos that need the same Fabric workspace/auth model,
+- one source of truth for deployable vs optional vs validation SQL files,
+- machine-enforced SQL guardrails for risky Fabric Warehouse schema evolution patterns.
+
 ## Generated Files
 
 - `06-fabric-sync/state/fabric_inventory_latest.json`
@@ -110,9 +128,22 @@ Important:
 - `sqlcmd` belongs to the CLI/execution layer, not the Fabric UI.
 - `sqlcmd` runs on the local machine or CI agent; the SQL executes in the remote Fabric Warehouse.
 - Arguments after `--` are forwarded directly to `sqlcmd`, so authentication stays environment-specific.
+- The ordered pack is resolved from `06-fabric-sync/sql_pack_manifest.py` so docs, quality checks, and the CLI share one source of truth.
 - Optional cleanup/reset scripts stay opt-in:
   - `--include-legacy-cleanup`
   - `--include-reset`
+
+Guardrail check for deployable SQL:
+
+```bash
+python3 06-fabric-sync/fabric_sql_guardrails.py
+```
+
+Current guardrail default:
+
+- risky schema-evolution patterns such as `ALTER TABLE`, `ALTER COLUMN`, and constraint changes are blocked from the canonical deployable pack,
+- one-time cleanup/reset stays outside the default path,
+- validation SQL remains separate from materialization SQL.
 
 Service principal note:
 
@@ -233,14 +264,15 @@ Per artifact:
 ## Recommended Workflow
 
 1. Change the repo SQL/docs or Fabric items intentionally.
-2. Run repo validation and review the diff.
-3. If Warehouse SQL changed, apply it in the Fabric editor or via `06-fabric-sync/scripts/apply_warehouse_sql_pack.sh`.
-4. If top-level Fabric items changed, run `fabric_sync.py` and review `fabric_inventory_diff_latest.md`.
-5. Run local parity baseline (`fabric_parity_baseline.py`).
-6. Capture Fabric parity payload and run `fabric_parity_compare.py`.
-7. If parity status is `PASS`, continue to report publication steps.
-8. Create a short change note in `06-fabric-sync/notes/` using `FABRIC_CHANGE_NOTE_TEMPLATE.md`.
-9. Commit snapshot, parity artifacts, and note with related SQL/notebook/doc changes.
+2. Run repo validation, including `fabric_sql_guardrails.py`, and review the diff.
+3. If this is a reusable/client-delivery cycle, update the contract bundle under `06-fabric-sync/contracts/`.
+4. If Warehouse SQL changed, apply it in the Fabric editor or via `06-fabric-sync/scripts/apply_warehouse_sql_pack.sh`.
+5. If top-level Fabric items changed, run `fabric_sync.py` and review `fabric_inventory_diff_latest.md`.
+6. Run local parity baseline (`fabric_parity_baseline.py`).
+7. Capture Fabric parity payload and run `fabric_parity_compare.py`.
+8. If parity status is `PASS`, continue to semantic-model or report publication steps.
+9. Create a short change note in `06-fabric-sync/notes/` using `FABRIC_CHANGE_NOTE_TEMPLATE.md`.
+10. Commit snapshot, parity artifacts, contracts, and notes with related SQL/notebook/doc changes.
 
 ## Required Standard
 

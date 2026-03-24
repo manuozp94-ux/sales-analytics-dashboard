@@ -120,9 +120,11 @@ FABRIC_WORKSPACE_ID="1fd8df3e-883f-49d3-9386-d236f8b272ba" \
 Notes:
 
 - `sqlcmd` runs on the caller host; the SQL executes in the remote Fabric Warehouse.
+- The CLI path resolves the default ordered pack from `06-fabric-sync/sql_pack_manifest.py`.
 - The CLI path intentionally excludes `40_parity_query_pack.sql` and `41_warehouse_catalog_probe.sql` because they are validation queries, not materialization steps.
 - The same CLI scaffold can later be invoked from Azure DevOps without duplicating the ordered SQL list in pipeline YAML.
 - The bootstrap helper validates service-principal reachability through the Fabric REST workspace-items endpoint before the SQL connection step.
+- Run `python3 06-fabric-sync/fabric_sql_guardrails.py` before treating deployable Warehouse SQL as release-ready.
 
 Canonical schema note:
 

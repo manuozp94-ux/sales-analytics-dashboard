@@ -25,6 +25,42 @@ MAX_TRACKED_FILE_BYTES = 100 * 1024 * 1024  # 100 MB hard limit
 TRANSITION_ALLOWLIST = {
     "04-duckdb/sales_analytics.duckdb",
 }
+FABRIC_SQL_GUARDRAILS = ROOT / "06-fabric-sync" / "fabric_sql_guardrails.py"
+
+CONTRACT_JSON_REQUIREMENTS = {
+    "06-fabric-sync/contracts/engagement_manifest.template.json": [
+        "schema_version",
+        "engagement",
+        "source_systems",
+        "contracts",
+        "release_policy",
+    ],
+    "06-fabric-sync/contracts/environment_contract.template.json": [
+        "schema_version",
+        "branches",
+        "workspaces",
+        "warehouses",
+        "parameters",
+        "approvals",
+    ],
+    "06-fabric-sync/contracts/semantic_model_contract.template.json": [
+        "schema_version",
+        "semantic_model",
+        "tables",
+        "relationships",
+        "security_roles",
+        "report_assumptions",
+    ],
+    "06-fabric-sync/contracts/governance_pack.template.json": [
+        "schema_version",
+        "workspace_access",
+        "identity_strategy",
+        "data_security",
+        "governance_layout",
+        "residency",
+        "production_gate",
+    ],
+}
 
 MARKDOWN_LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 FORBIDDEN_PUBLIC_TERMS = [
@@ -202,6 +238,47 @@ def check_memory_templates(errors: list[str]) -> None:
                 errors.append(f"Memory template heading missing ({rel}): {heading}")
 
 
+def check_contract_templates(errors: list[str]) -> None:
+    for rel, keys in CONTRACT_JSON_REQUIREMENTS.items():
+        path = ROOT / rel
+        if not path.exists():
+            errors.append(f"Missing contract template: {rel}")
+            continue
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            errors.append(f"Invalid JSON contract template ({rel}): {exc}")
+            continue
+
+        if not isinstance(payload, dict):
+            errors.append(f"Contract template root must be object: {rel}")
+            continue
+
+        for key in keys:
+            if key not in payload:
+                errors.append(f"Contract template missing key ({rel}): {key}")
+
+
+def check_fabric_sql_guardrails(errors: list[str]) -> None:
+    if not FABRIC_SQL_GUARDRAILS.exists():
+        errors.append("Missing Fabric SQL guardrail script.")
+        return
+
+    result = subprocess.run(
+        [sys.executable, str(FABRIC_SQL_GUARDRAILS)],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode == 0:
+        return
+
+    output = result.stdout.strip() or result.stderr.strip() or "unknown guardrail failure"
+    for line in output.splitlines():
+        errors.append(f"Fabric SQL guardrail: {line}")
+
+
 def check_codeowners(errors: list[str]) -> None:
     codeowners = ROOT / ".github/CODEOWNERS"
     if not codeowners.exists():
@@ -242,6 +319,8 @@ def main() -> int:
     check_markdown_links(errors)
     check_artifacts(errors)
     check_memory_templates(errors)
+    check_contract_templates(errors)
+    check_fabric_sql_guardrails(errors)
     check_codeowners(errors)
     check_public_doc_voice(errors)
     return fail(errors)

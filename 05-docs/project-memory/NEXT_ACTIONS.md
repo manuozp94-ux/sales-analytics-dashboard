@@ -2,7 +2,7 @@
 
 ## Last Updated (UTC)
 
-- 2026-03-14
+- 2026-03-15
 
 ## Top 3 Actions
 
@@ -19,6 +19,10 @@
 - Post-MVP, promote the local Warehouse SQL apply path into Azure DevOps with a real `warehouse_sql_apply` stage plus automated parity compare.
 - Post-MVP, evaluate a Windows-based PBIP/PBIR workflow for code-driven report generation, since Power BI Desktop is not natively available on macOS.
 - Before declaring the project complete, split `06-fabric-sync/sql/fabric-warehouse/` into deployable vs optional vs validation folders and update the apply scaffold to auto-discover only the deployable SQL files.
+- Pilot the new contract bundle under `06-fabric-sync/contracts/` on a sample client-style engagement and replace placeholders with a real reusable accelerator example.
+- Add semantic-model drift validation so `semantic_model_contract.template.json` becomes an enforceable gate instead of documentation only.
+- Add environment-aware release-bundle validation so `dev/test/prod` contracts are checked before deployment work is treated as client-ready.
+- Keep `06-fabric-sync/FABRIC_CONSULTING_STANDARD.md` current as Fabric guidance and repo defaults evolve.
 - Configure Azure DevOps board columns aligned to roadmap weeks.
 - Start application tracker with target companies and submission dates.
 - Set weekly certification checkpoint table for PL-300 and DP-600.

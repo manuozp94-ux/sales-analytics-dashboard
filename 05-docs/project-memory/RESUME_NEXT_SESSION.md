@@ -2,7 +2,7 @@
 
 ## Last Updated (UTC)
 
-- 2026-03-14
+- 2026-03-15
 
 ## Current Snapshot
 
@@ -36,8 +36,19 @@
 - Do not rerun full runbook unless base objects were dropped/changed.
 - Publication is allowed because parity compare is `PASS`, and the current Warehouse cleanup is already live in Fabric.
 - The current MVP report uses manual Power BI Service editing on macOS. Treat PBIP/PBIR and code-driven layout generation as post-MVP work.
+- The consulting-grade Fabric accelerator foundation now starts from:
+  - `06-fabric-sync/FABRIC_CONSULTING_STANDARD.md`
+  - `06-fabric-sync/contracts/`
+  - `06-fabric-sync/sql_pack_manifest.py`
+  - `06-fabric-sync/fabric_sql_guardrails.py`
 
 ## If Fabric Model Changes Again
 
 - Refresh `06-fabric-sync/state/parity/parity_fabric_latest.json` from the Warehouse query pack.
 - Rerun the comparator and keep `06-fabric-sync/state/parity/parity_compare_latest.md` at `PASS` before updating public-facing metrics or links.
+
+## If Agent Architecture Work Resumes
+
+- Start from the Fabric consulting standard and contract bundle before proposing new automation layers.
+- Keep repo-first Warehouse SQL as the default path unless the engagement explicitly justifies Fabric Git/deployment-pipeline adoption.
+- Treat semantic-model, environment, and governance contracts as the next enforcement targets after the current MVP publication work.

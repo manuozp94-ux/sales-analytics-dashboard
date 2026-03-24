@@ -43,6 +43,7 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(cd "${script_dir}/../.." && pwd)"
 warehouse_sql_dir="${repo_root}/06-fabric-sync/sql/fabric-warehouse"
 bundled_sqlcmd_bin="${repo_root}/06-fabric-sync/tools/sqlcmd/sqlcmd"
+sql_pack_manifest_py="${repo_root}/06-fabric-sync/sql_pack_manifest.py"
 
 if [[ -n "${SQLCMD_BIN:-}" ]]; then
   sqlcmd_bin="${SQLCMD_BIN}"
@@ -99,31 +100,37 @@ while (($# > 0)); do
   esac
 done
 
-declare -a sql_files=(
-  "00_schema_bootstrap.sql"
-)
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "python3 is required to resolve the canonical SQL pack manifest." >&2
+  exit 1
+fi
+
+if [[ ! -f "${sql_pack_manifest_py}" ]]; then
+  echo "Missing SQL pack manifest helper: ${sql_pack_manifest_py}" >&2
+  exit 1
+fi
+
+declare -a manifest_args=("${sql_pack_manifest_py}" "--format" "newline")
 
 if [[ "${include_legacy_cleanup}" == "true" ]]; then
-  sql_files+=("02_drop_legacy_marts_schema_safe.sql")
+  manifest_args+=("--include-legacy-cleanup")
 fi
 
 if [[ "${include_reset}" == "true" ]]; then
-  sql_files+=("01_reset_core_mart_safe.sql")
+  manifest_args+=("--include-reset")
 fi
 
-sql_files+=(
-  "05_stg_compat_views.sql"
-  "10_core_dim_date.sql"
-  "11_core_dim_customers.sql"
-  "12_core_dim_products.sql"
-  "20_core_fact_orders.sql"
-  "21_core_fact_order_items.sql"
-  "22_core_fact_order_payments.sql"
-  "23_core_fact_order_reviews.sql"
-  "30_mart_cohort_unit_economics.sql"
-  "31_mart_monthly_business_snapshot.sql"
-  "32_mart_customer_ltv_summary.sql"
-)
+declare -a sql_files=()
+while IFS= read -r sql_file; do
+  if [[ -n "${sql_file}" ]]; then
+    sql_files+=("${sql_file}")
+  fi
+done < <(python3 "${manifest_args[@]}")
+
+if ((${#sql_files[@]} == 0)); then
+  echo "Resolved SQL pack is empty. Refusing to continue." >&2
+  exit 1
+fi
 
 if [[ "${print_only}" == "true" ]]; then
   echo "Planned Warehouse SQL apply order:"

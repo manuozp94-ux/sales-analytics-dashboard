@@ -1,0 +1,50 @@
+{
+  "schema_version": "2026-03-15",
+  "workspace_access": {
+    "admins": [
+      "fabric_platform_team"
+    ],
+    "members": [
+      "engagement_owner"
+    ],
+    "contributors": [
+      "delivery_engineer"
+    ],
+    "viewers": [
+      "client_business_reviewers"
+    ]
+  },
+  "identity_strategy": {
+    "workspace_identity_preferred": true,
+    "fixed_identity_required_for_production": true,
+    "service_principal_allowed": true,
+    "notes": "Do not store live secrets in repo contracts."
+  },
+  "data_security": {
+    "rls_required": false,
+    "cls_required": false,
+    "ols_required": false,
+    "item_sharing_allowed": "restricted",
+    "sensitivity_label": "TBD",
+    "audit_review_frequency": "monthly"
+  },
+  "governance_layout": {
+    "domain": "business_operations",
+    "subdomain": "analytics_consulting",
+    "workspace_owner": "engagement_owner",
+    "capacity_owner": "fabric_platform_team"
+  },
+  "residency": {
+    "region": "TBD",
+    "cross_geo_allowed": false,
+    "regulatory_notes": "Record client-specific residency or compliance requirements."
+  },
+  "production_gate": {
+    "security_review_required": true,
+    "access_review_required": true,
+    "approvers": [
+      "fabric_platform_team",
+      "client_data_owner"
+    ]
+  }
+}

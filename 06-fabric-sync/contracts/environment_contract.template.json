@@ -1,0 +1,66 @@
+{
+  "schema_version": "2026-03-15",
+  "branches": {
+    "development": "feature/<scope>",
+    "test": "release/<milestone>",
+    "production": "main"
+  },
+  "workspaces": {
+    "dev": {
+      "workspace_id": "00000000-0000-0000-0000-000000000000",
+      "workspace_name": "ws_client_dev",
+      "approval_required": false
+    },
+    "test": {
+      "workspace_id": "00000000-0000-0000-0000-000000000000",
+      "workspace_name": "ws_client_test",
+      "approval_required": true
+    },
+    "prod": {
+      "workspace_id": "00000000-0000-0000-0000-000000000000",
+      "workspace_name": "ws_client_prod",
+      "approval_required": true
+    }
+  },
+  "warehouses": {
+    "dev": {
+      "name": "wh_client_dev",
+      "database_name": "wh_client_dev"
+    },
+    "test": {
+      "name": "wh_client_test",
+      "database_name": "wh_client_test"
+    },
+    "prod": {
+      "name": "wh_client_prod",
+      "database_name": "wh_client_prod"
+    }
+  },
+  "parameters": [
+    {
+      "name": "fabric_workspace_id",
+      "stage_values": {
+        "dev": "<workspace-id-dev>",
+        "test": "<workspace-id-test>",
+        "prod": "<workspace-id-prod>"
+      }
+    },
+    {
+      "name": "warehouse_name",
+      "stage_values": {
+        "dev": "wh_client_dev",
+        "test": "wh_client_test",
+        "prod": "wh_client_prod"
+      }
+    }
+  ],
+  "approvals": {
+    "test_reviewers": [
+      "analytics_lead"
+    ],
+    "production_approvers": [
+      "engagement_owner",
+      "client_data_owner"
+    ]
+  }
+}

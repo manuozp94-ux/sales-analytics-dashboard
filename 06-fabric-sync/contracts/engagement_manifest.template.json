@@ -1,0 +1,33 @@
+{
+  "schema_version": "2026-03-15",
+  "engagement": {
+    "name": "sample_business_ops_analytics",
+    "client_code": "sample_client",
+    "delivery_mode": "implementation_sprint",
+    "architecture_pattern": "warehouse_first",
+    "status": "planning",
+    "owner": "manuel.orozco",
+    "official_guidance_profile": "repo_first_warehouse_canonical"
+  },
+  "source_systems": [
+    {
+      "name": "orders_erp_extract",
+      "kind": "warehouse_extract",
+      "classification": "structured",
+      "refresh_cadence": "daily",
+      "landing_target": "lakehouse",
+      "notes": "Replace with client-specific source details."
+    }
+  ],
+  "contracts": {
+    "environment_contract": "06-fabric-sync/contracts/environment_contract.client.json",
+    "semantic_model_contract": "06-fabric-sync/contracts/semantic_model_contract.client.json",
+    "governance_pack": "06-fabric-sync/contracts/governance_pack.client.json"
+  },
+  "release_policy": {
+    "fabric_writes": "human_gated",
+    "warehouse_sql_source_of_truth": "repo",
+    "parity_required_before_public_metrics": true,
+    "security_review_required_before_prod": true
+  }
+}

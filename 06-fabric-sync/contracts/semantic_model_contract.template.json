@@ -1,0 +1,52 @@
+{
+  "schema_version": "2026-03-15",
+  "semantic_model": {
+    "name": "sm_client_ops_analytics",
+    "source_type": "warehouse",
+    "source_schema": "mart",
+    "edit_mode": "manual_service_until_code_path_exists",
+    "default_semantic_model_assumed": false,
+    "manual_sync_required": true
+  },
+  "tables": [
+    {
+      "name": "mart_monthly_business_snapshot",
+      "source_object": "mart.mart_monthly_business_snapshot",
+      "hidden": false,
+      "columns": [
+        {
+          "name": "purchase_month",
+          "data_type": "date",
+          "format_string": "yyyy-mm",
+          "hidden": false
+        },
+        {
+          "name": "revenue_total",
+          "data_type": "decimal",
+          "format_string": "$#,0.00",
+          "hidden": false
+        }
+      ],
+      "measures": [
+        {
+          "name": "Revenue Total",
+          "expression": "SUM('mart_monthly_business_snapshot'[revenue_total])",
+          "format_string": "$#,0.00"
+        }
+      ]
+    }
+  ],
+  "relationships": [],
+  "security_roles": [
+    {
+      "name": "executive_readers",
+      "type": "rls",
+      "filter_expression": "Define only when the engagement requires row restrictions."
+    }
+  ],
+  "report_assumptions": [
+    "Formatting and relationships are explicit contract items.",
+    "Warehouse table additions do not auto-appear in the semantic model.",
+    "Field naming and aggregation behavior must be reviewed before publication."
+  ]
+}

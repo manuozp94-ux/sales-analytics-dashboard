@@ -817,3 +817,62 @@ Use the same headings for every new entry:
 
 - Session wrapped with continuity docs refreshed.
 - Treat Page 1 as data-validated MVP baseline; next session should focus on presentation polish and the remaining report pages, not rechecking the current data pull unless the semantic model changes.
+
+---
+
+## Session Date (UTC)
+
+- 2026-03-15
+
+## Session Goal
+
+- Implement the first consulting-grade Fabric accelerator layer from the best-practices gap review: canonical standards, reusable contracts, and machine-enforced Warehouse SQL guardrails.
+
+## Changes Completed
+
+- Added canonical Fabric consulting standard:
+  - `06-fabric-sync/FABRIC_CONSULTING_STANDARD.md`
+- Added reusable Fabric contract bundle:
+  - `06-fabric-sync/contracts/README.md`
+  - `06-fabric-sync/contracts/engagement_manifest.template.json`
+  - `06-fabric-sync/contracts/environment_contract.template.json`
+  - `06-fabric-sync/contracts/semantic_model_contract.template.json`
+  - `06-fabric-sync/contracts/governance_pack.template.json`
+  - `06-fabric-sync/contracts/release_bundle_checklist.md`
+- Added canonical SQL pack manifest:
+  - `06-fabric-sync/sql_pack_manifest.py`
+- Added deployable Warehouse SQL guardrail CLI:
+  - `06-fabric-sync/fabric_sql_guardrails.py`
+- Updated the Warehouse SQL apply scaffold to resolve the ordered pack from the shared manifest instead of duplicating the file list.
+- Updated repo quality checks to:
+  - validate contract template JSON files,
+  - execute the new Fabric Warehouse SQL guardrail check.
+- Updated canonical docs (`README`, `06-fabric-sync/README`, `PROJECT_RULES`, `CONTRIBUTING`, `06-fabric-sync/sql/README`, parity runbook) to point future work at the new operating standard and contract bundle.
+
+## Validation Evidence
+
+- SQL pack manifest rendered successfully:
+  - `python3 06-fabric-sync/sql_pack_manifest.py --manifest-only`
+- Deployable Warehouse SQL guardrails passed:
+  - `python3 06-fabric-sync/fabric_sql_guardrails.py`
+  - result: `Checked 12 deployable SQL files`
+- Warehouse SQL scaffold preview still works after manifest integration:
+  - `./06-fabric-sync/scripts/apply_warehouse_sql_pack.sh --print-only`
+  - result: canonical 12-script ordered pack rendered successfully
+- Repository quality checks:
+  - `python3 .github/scripts/quality_checks.py`
+  - result: `QUALITY CHECKS PASSED`
+
+## Decisions
+
+- Keep repo-first SQL as the canonical Warehouse source-of-truth path for now.
+- Treat Fabric Git/deployment-pipeline support as an optional capability layer, not the default consulting path, while Warehouse source-control behavior remains preview-constrained.
+- Block risky schema-evolution patterns from the canonical deployable Warehouse SQL pack by default.
+- Treat semantic-model, environment, and governance contracts as required delivery inputs for future reusable/client-style engagements.
+
+## Carry-Over
+
+- Pilot the new contract bundle on the next reusable/client-style engagement or accelerator demo.
+- Add semantic-model drift validation so the new semantic-model contract can be enforced instead of documented only.
+- Add environment-aware release-bundle validation before promoting the consulting accelerator as production-ready client delivery tooling.
+- Continue the current Week 2 publication path in parallel: polish Page 1, build Pages 2 and 3, and publish the report.

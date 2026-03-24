@@ -72,9 +72,11 @@ Use the repository PR template.
 PRs should pass baseline checks for:
 
 - SQL file quality checks.
+- Fabric Warehouse SQL guardrail checks.
 - Notebook JSON sanity checks.
 - Markdown relative link checks.
 - Artifact policy checks (heavy file guardrails).
+- Contract template validation checks.
 
 Before proposing a commit or closing a non-trivial work session, run one short optimization sweep:
 
@@ -102,6 +104,8 @@ Before proposing a commit or closing a non-trivial work session, run one short o
 - Live Warehouse changes happen only after those scripts are executed:
   - in the Fabric SQL editor, or
   - through `06-fabric-sync/scripts/apply_warehouse_sql_pack.sh`.
+- The canonical deployable file set is defined in `06-fabric-sync/sql_pack_manifest.py`.
+- Run `python3 06-fabric-sync/fabric_sql_guardrails.py` before treating Warehouse SQL as ready for release.
 - If `sqlcmd` is used, the command runs on the local machine or pipeline agent; Fabric Warehouse is the remote execution target.
 - Re-run the parity path after material Warehouse SQL changes before treating Power BI outputs as current.
 

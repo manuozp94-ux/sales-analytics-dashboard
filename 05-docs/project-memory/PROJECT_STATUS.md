@@ -2,7 +2,7 @@
 
 ## Last Updated (UTC)
 
-- 2026-03-14
+- 2026-03-15
 
 ## Session State
 
@@ -10,7 +10,7 @@
 
 ## Current Phase
 
-- Week 2 execution in progress (Fabric architecture replication hardening before public visualization release).
+- Week 2 execution in progress (publication work continues while consulting-grade Fabric delivery standards and guardrails are being codified).
 
 ## Current Sprint Goals
 
@@ -18,6 +18,7 @@
 - Enable continuity system (`PROJECT_STATUS`, `SESSION_LOG`, `NEXT_ACTIONS`).
 - Lock owner-only governance and documentation voice standard.
 - Enforce Fabric evidence protocol (sync + change notes).
+- Codify reusable Fabric consulting contracts and SQL deployment guardrails.
 
 ## Latest Outputs
 
@@ -119,6 +120,19 @@
 - Current report authoring path confirmed:
   - manual Fabric/Power BI Service editing for MVP
   - code-driven PBIP/PBIR route remains post-MVP because Copilot capacity is unavailable and Power BI Desktop is not natively available on macOS
+- Canonical Fabric consulting operating standard added:
+  - `06-fabric-sync/FABRIC_CONSULTING_STANDARD.md`
+- Reusable Fabric contract bundle added:
+  - `06-fabric-sync/contracts/`
+  - starter templates now exist for engagement, environment, semantic model, governance, and release-bundle checklist
+- Canonical SQL pack manifest added:
+  - `06-fabric-sync/sql_pack_manifest.py`
+  - deployable, optional, and validation SQL are now defined from one source of truth
+- Deployable Fabric Warehouse SQL guardrails added:
+  - `06-fabric-sync/fabric_sql_guardrails.py`
+  - repo quality checks now fail if risky schema-evolution patterns enter the canonical deployable pack
+- Warehouse SQL CLI apply scaffold now resolves the canonical ordered pack from the shared manifest instead of maintaining its own file list
+- Core docs updated to point future client-delivery and agent-architecture work at the new standard/contract layer
 
 ## Active Blockers
 
@@ -140,6 +154,8 @@
 - A future DevOps `sqlcmd` stage can fail if agent-side SQL tooling or connection/auth configuration drifts from the Warehouse endpoint requirements.
 - As the mart surface grows, the current explicit file list in `apply_warehouse_sql_pack.sh` can become maintenance overhead until the SQL pack is split into deployable vs optional vs validation paths.
 - Power BI Service formatting/modeling limits can slow down polish work on macOS until a Windows-based PBIP/PBIR path is available for post-MVP automation.
+- The new contract bundle is scaffold-only today; environment, semantic-model, and governance contracts are not yet enforced by deployment-time validation.
+- Semantic-model lifecycle is still manual even though the new semantic-model contract now exists as the canonical future path.
 
 ## Mitigation Actions
 
@@ -159,6 +175,8 @@
 - After MVP publication, promote the validated local `sqlcmd` path into Azure DevOps together with an automated parity gate so Warehouse SQL and publication controls share the same pipeline path.
 - Keep MVP report authoring in Fabric Service on macOS; defer PBIP/PBIR code-driven reporting to a Windows-capable environment after publication.
 - Before calling the project done, refactor the Warehouse SQL pack into deployable/optional/validation folders and switch the apply scaffold to folder-based discovery for deployable SQL only.
+- Pilot the new contract bundle on the next reusable/client-style engagement so the templates become real delivery inputs instead of dormant scaffolds.
+- Add semantic-model drift validation and environment-aware release-bundle checks before treating the consulting accelerator as production-ready.
 
 ## Next Milestone
 
@@ -169,3 +187,4 @@
 - Start from `05-docs/project-memory/RESUME_NEXT_SESSION.md`.
 - Continue from the validated executive overview page, polish it, then build pages 2 and 3 and move toward publication.
 - Rotate PAT and Entra app secret before the next Fabric apply cycle so the current baseline is carried forward with fresh credentials only.
+- For future agent-architecture work, start from `06-fabric-sync/FABRIC_CONSULTING_STANDARD.md` and `06-fabric-sync/contracts/`.

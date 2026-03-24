@@ -1,228 +1,77 @@
-# Sales Analytics Dashboard  
-### Dimensional Modeling & Analytics Engineering Project
-
----
-
-## 0. Canonical Navigation
-
-- Project Rules: `05-docs/PROJECT_RULES.md`
-- Roadmap: `05-docs/ROADMAP.md`
-- History Curation Strategy: `05-docs/HISTORY_CURATION_STRATEGY.md`
-- Project Memory:
-  - `05-docs/project-memory/PROJECT_STATUS.md`
-  - `05-docs/project-memory/SESSION_LOG.md`
-  - `05-docs/project-memory/NEXT_ACTIONS.md`
-
-Use the project memory files as the official "where we left off" mechanism between sessions.
-
----
-
-## 1. Project Purpose
-
-This project implements a complete dimensional modeling pipeline for a transactional sales dataset.
-
-The primary objectives are:
-
-- Design a clean Star Schema
-- Enforce explicit grain and referential integrity
-- Separate transformation logic from orchestration
-- Define a formal Metric Contract
-- Prepare the model for BI consumption
-- Architect the solution for future migration to Microsoft Fabric
-
-This project focuses on analytics engineering discipline rather than infrastructure complexity.
-
----
-
-## 2. Current Implementation (Engine-Agnostic Layer)
-
-The project is currently implemented locally using:
-
-- DuckDB (SQL execution engine)
-- Versioned SQL scripts (`03-sql/`)
-- Jupyter notebooks for orchestration and validation
-- Explicit validation checks (grain, nulls, referential integrity)
-
-### Why DuckDB?
-
-DuckDB allows:
-
-- Fast local iteration
-- Deterministic SQL modeling
-- Clear separation between data modeling and infrastructure
-- Portable architecture
-
-All transformation logic lives in SQL scripts.
-Python notebooks contain no business logic.
-
----
-
-## 3. Data Model
-
-The analytical model is implemented as a star schema.
-
-### Dimensions
-- dim_date
-- dim_customers
-- dim_products
-
-### Facts
-- fact_orders (1 row per order_id)
-- fact_order_items (1 row per order_id + order_item_id)
-- fact_order_payments (1 row per order_id + payment_sequential)
-- fact_order_reviews (1 row per review_id + order_id)
-
-Each table explicitly defines:
-
-- Grain
-- Primary key
-- Foreign keys
-- Source staging tables
-- Referential integrity policy
-
-See `STAR_SCHEMA.md` for full specification.
-
----
-
-## 4. Validation Strategy
-
-Each table is validated using:
-
-- Row count checks
-- Grain validation (uniqueness tests)
-- Null key checks
-- Referential integrity (orphan detection)
-
-All validations are executed in `02_duckdb_materialization.ipynb`.
-
-The model enforces full referential integrity across conformed keys.
-
----
-
-## 5. Metric Layer (Business Contract)
-
-The project defines a formal Metric Contract including:
-
-### Domain I – Operational Performance
-- total_orders
-- approval_rate
-- on_time_delivery_rate
-- avg_delivery_time_days
-
-### Domain II – Revenue & Basket Efficiency
-- gmv
-- revenue_total
-- avg_order_value
-- avg_items_per_order
-- freight_ratio
-
-### Domain III – Customer Intelligence
-- active_customers
-- repeat_customer_rate
-- avg_review_score
-- review_coverage_rate
-
-### Domain IV – Retention & Cohort Analysis
-- cohort_size
-- retention_rate
-
-See `PHASE_4_METRIC_CONTRACT.md` for formal definitions.
-
----
-
-## 6. Execution Workflow
-
-1. Load staging tables from CSV
-2. Run schema and model SQL scripts
-3. Execute validation suite
-4. Materialize marts (planned)
-5. Expose to BI layer
-
-The pipeline is fully reproducible.
-
----
-
-## 7. Planned Evolution — Microsoft Fabric
-
-The architecture is intentionally designed to be engine-portable.
-
-Planned migration steps:
-
-- Land raw and clean layers in Fabric Lakehouse (Delta format)
-- Execute SQL transformations in Fabric Warehouse or Lakehouse SQL endpoint
-- Persist fact/dimension tables in Fabric
-- Expose semantic model to Power BI
-- Implement scheduled refresh and governance
-
-The current DuckDB implementation serves as:
-
-- Proof of modeling correctness
-- Controlled development environment
-- Portable semantic layer foundation
-
----
-
-## 7.1 Fabric-to-Repo Sync (Inventory Drift Control)
-
-To keep local code and Fabric workspace state aligned, use:
-
-- `06-fabric-sync/fabric_sync.py` to generate versioned snapshots of Fabric artifacts
-- `06-fabric-sync/state/fabric_inventory_latest.json` as latest state
-- `06-fabric-sync/state/fabric_inventory_diff_latest.md` as change report
-
-This creates a traceable bridge between:
-
-- what is built in Fabric (workspace artifacts),
-- and what is versioned in this repository.
-
-## 7.2 Fabric Parity Gate (Architecture Before Visualization)
-
-Parity tooling is implemented under `06-fabric-sync/`:
-
-- `fabric_parity_baseline.py` (local DuckDB baseline)
-- `fabric_parity_compare.py` (local vs Fabric comparator, hard PASS/FAIL)
-- `parity_contract.py` (frozen contract for objects, KPIs, and QA checks)
-- `RUNBOOK_FABRIC_WAREHOUSE_PARITY.md` (manual Fabric execution runbook)
-
-Publication rule:
-
-- Power BI public release is blocked until parity comparison returns `PASS`.
-
----
-
-## 8. Scope Boundaries
-
-This project is intentionally not:
-
-- A machine learning system
-- A streaming platform
-- A production-grade cloud deployment
-- An infrastructure-heavy DevOps exercise
-
-It is a focused analytics engineering and dimensional modeling implementation.
-
----
-
-## 9. Architectural Principles
-
-- Explicit grain definition
-- Deterministic SQL transformations
-- Separation of concerns
-- Validation-first modeling
-- Referential integrity enforcement
-- Engine portability
-
----
-
-## 10. Archive Note
-
-Historical conversational material exists under `05-docs/context-consolidation/` for traceability.
-
-Canonical decisions and operating rules must be maintained in English in the canonical docs listed in section 0.
-
----
-
-## 11. Case Study Assets (Week 2)
-
-- `05-docs/case-study/CASE_STUDY_DRAFT.md`
-- `05-docs/case-study/CASE_STUDY_EVIDENCE_2026-03-12.md`
+# Technical Documentation Index
+
+This folder is the canonical documentation surface for the repository. Use it to understand the model, the Fabric implementation path, the evidence trail, and the BMAD-oriented legacy package without having to read the full session log history.
+
+## 1. Start Here
+
+- [Root README](../README.md)
+  - public portfolio entry point and high-level story.
+- [BMAD Export Package](bmad-export/README.md)
+  - curated legacy, findings, planning input, and portfolio-positioning assets.
+- [Case Study Draft](case-study/CASE_STUDY_DRAFT.md)
+  - business framing, KPI snapshot, QA evidence, and dashboard linkage.
+- [Fabric Sync Bridge](../06-fabric-sync/README.md)
+  - Fabric implementation workflow, guarded delivery, and validation path.
+
+## 2. Architecture And Model
+
+- [Star Schema](STAR_SCHEMA.md)
+  - canonical grain, keys, and model structure.
+- [Metric Contract](PHASE_4_METRIC_CONTRACT.md)
+  - governed KPI definitions and business semantics.
+- `../03-sql/models/`
+  - dimensions and facts.
+- `../03-sql/marts/`
+  - dashboard-facing marts.
+- `../02-notebooks/`
+  - orchestration and validation support.
+
+## 3. Fabric Implementation And Evidence
+
+- [Fabric Warehouse Parity Runbook](../06-fabric-sync/RUNBOOK_FABRIC_WAREHOUSE_PARITY.md)
+  - Warehouse materialization and parity workflow.
+- [Fabric Change Notes](../06-fabric-sync/notes/README.md)
+  - point-in-time evidence of implementation milestones.
+- [Latest Parity Report](../06-fabric-sync/state/parity/parity_compare_latest.md)
+  - current local-vs-Fabric validation result.
+- [Fabric Bootstrap Package](../07-fabric-bootstrap/ARCHITECTURE_AUTH_PACKAGE.md)
+  - reusable onboarding package for other repos.
+
+## 4. BMAD And Transition Assets
+
+- [BMAD Export Index](bmad-export/README.md)
+- [Implementation Findings Legacy](bmad-export/01_implementation_findings_legacy.md)
+- [BMAD Product Brief Input](bmad-export/02_bmad_product_brief_input.md)
+- [Repo Transition Storyline](bmad-export/03_repo_transition_storyline.md)
+- [Portfolio Positioning](bmad-export/04_portfolio_positioning.md)
+
+These documents treat this repository as the first meaningful stage in a broader transition from code-first learning to architecture-first, agent-assisted platform delivery.
+
+## 5. Portfolio Evidence
+
+- [Case Study Evidence Snapshot](case-study/CASE_STUDY_EVIDENCE_2026-03-12.md)
+- `case-study/pbi-source/`
+  - exported mart data used for portfolio-facing Power BI evidence.
+- [Roadmap](ROADMAP.md)
+  - milestone framing and delivery intent.
+
+## 6. Standards And Governance
+
+- [Project Rules](PROJECT_RULES.md)
+- [GitHub + Azure DevOps Operating Model](GITHUB_ADO_OPERATING_MODEL.md)
+- [History Curation Strategy](HISTORY_CURATION_STRATEGY.md)
+- [Fabric Consulting Standard](../06-fabric-sync/FABRIC_CONSULTING_STANDARD.md)
+- [Fabric Contract Bundle](../06-fabric-sync/contracts/README.md)
+
+## 7. Supporting Operational Memory
+
+These files are important for continuity, but they are supporting artifacts rather than public-first docs:
+
+- `project-memory/PROJECT_STATUS.md`
+- `project-memory/SESSION_LOG.md`
+- `project-memory/NEXT_ACTIONS.md`
+- `project-memory/RESUME_NEXT_SESSION.md`
+
+## 8. Historical Archive
+
+`context-consolidation/` is a traceability archive. Use it when you need raw historical context, source conversations, or consolidation provenance. Do not treat it as the first place to understand the repository.
